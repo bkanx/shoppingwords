@@ -21,7 +21,7 @@ normalize_text <- function(text) {
 
     if (!is.na(iso_transfer_index)) {
       message(sprintf("\n%-30s", "Using shoppingwords_tr → No match found"))
-      message(sprintf("\n%-30s", "Using stopwords_iso → Index info:"))
+      message(sprintf("\n%-30s", "Using stopwords_iso → Index Info:"))
       return(iso_transfer_index) # Return matched word from stopwords_iso
     } else {
       return(NA) # No match found in either list

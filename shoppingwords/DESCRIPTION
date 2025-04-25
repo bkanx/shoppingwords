@@ -1,0 +1,21 @@
+Package: shoppingwords
+Title: It includes the collection of words from user reviews 
+Version: 0.0.0.9000
+Authors@R:
+    c(person(
+            given = "Mine",
+            family = "Rundel",
+            email = "mc301@duke.edu",
+            role = c("aut"),
+            ),
+            person(
+            given = "Betul",
+            family = "Kan-Kilinc",
+            email = c("bk234@duke.edu", "bkan@eskisehir.edu.tr"),
+            role = c("aut", "cre")
+        ))
+Description: It includes the collection of words from user reviews that were captured from an online shopping platform
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2

@@ -2,16 +2,16 @@
 % Please edit documentation in R/stopwords_tr.R
 \name{load_stopwords}
 \alias{load_stopwords}
-\title{Load stopwords dataset}
+\title{Load predefined stopwords}
 \usage{
 load_stopwords(format = "csv")
 }
 \arguments{
-\item{format}{The file format to load ("csv")}
+\item{format}{Character string specifying the format. Default is "csv".}
 }
 \value{
-A data frame (tibble)
+A tibble with stopwords.
 }
 \description{
-Load stopwords dataset
+This function loads stopwords from a CSV file within the package.
 }

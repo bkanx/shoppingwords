@@ -1,8 +1,8 @@
 #' Load dataset
-#' @param format The file format to load ("csv" or "rds")
+#' @param format The file format to load ("csv", "rds",  or "rds")
 #' @return A data frame
 #' @import readr
-#' @import tidyr
+#' @importFrom tidyr pivot_longer
 #' @import jsonlite
 #' @export
 #' @examples

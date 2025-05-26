@@ -7,7 +7,7 @@
 load_data(format = "csv")
 }
 \arguments{
-\item{format}{The file format to load ("csv" or "rds")}
+\item{format}{The file format to load ("csv", "rds",  or "rds")}
 }
 \value{
 A data frame

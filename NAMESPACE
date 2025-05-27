@@ -2,11 +2,13 @@
 
 export(load_corrected_words)
 export(load_phrases)
+export(load_reviews)
 export(load_stopwords)
 export(normalize_text)
 import(jsonlite)
 import(readr)
 import(stopwords)
 import(stringi)
+importFrom(readr,read_rds)
 importFrom(stringdist,amatch)
 importFrom(tidyr,pivot_longer)

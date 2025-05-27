@@ -6,11 +6,9 @@
 #' @import stopwords
 #' @return Normalized version of the input word
 #' @export
-#' @examples
-#' user_input <- "Göre"
-#' match <- amatch("göre", stopwords_all, method = "lv", maxDist = 1)
-#' normalized_input <- normalize_text(user_input)
 normalize_text <- function(text) {
+  stopwords_url <- "https://raw.githubusercontent.com/bkanx/shoppingwords/main/data/stopwords_tr.csv"
+  stopwords_tr <- read_csv(stopwords_url, col_names = TRUE)
   text <- tolower(text)
   transfer <- stringi::stri_trans_general(text, "Latin-ASCII") # Converts "göre" → "gore"
   transfer_index <- stringdist::amatch(text, stopwords_tr$stopwords_all, method = "lv", maxDist = 1)
@@ -24,8 +22,8 @@ normalize_text <- function(text) {
     iso_transfer_word <- stopwords_iso[iso_transfer_index]
 
     if (!is.na(iso_transfer_index)) {
-      message(sprintf("\n%-30s", "Using shoppingwords_tr → No match found"))
-      message(sprintf("\n%-30s", "Using stopwords_iso → Index Info:"))
+      message(sprintf("\n%-30s", "Using shoppingwords_tr \u2192 No match found"))
+      message(sprintf("\n%-30s", "Using stopwords_iso \u2192 Index Info:"))
       return(list(iso_index = iso_transfer_index,iso_transfer_word))  # Return matched word from stopwords_iso
     } else {
       return(NA) # No match found in either list

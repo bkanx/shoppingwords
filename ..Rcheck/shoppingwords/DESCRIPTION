@@ -1,0 +1,35 @@
+Package: shoppingwords
+Data: data/stopwords_tr.csv, data/phrases.csv
+Title: It includes the collection of words from user reviews
+Version: 1.0.0
+Author: Betul Kan-Kilinc, Mine Cetinkaya-Rundel, Colin Rundel
+Maintainer: Betul Kan-Kilinc <bk234@duke.edu>
+Authors@R: 
+    c(person(
+            given = "Betul",
+            family = "Kan-Kilinc",
+            email = c("bk234@duke.edu", "bkan@eskisehir.edu.tr"),
+            role = c("aut", "cre")
+        ),
+    person(
+            given = "Mine",
+            family = "Cetinkaya-Rundel",
+            email = "mc301@duke.edu",
+            role = c("aut"),
+            ),
+    person(
+            given = "Colin",
+            family = "Rundel",
+            email = "cr173@duke.edu",
+            role = c("aut"),
+            ))
+Imports: readr (>= 2.0.0), tidyr (>= 1.3.0), jsonlite, stringi,
+        stopwords, stringdist
+Depends: R (>= 4.0.0)
+Description: It includes the collection of words from user reviews that were captured from an online shopping platform.
+License: MIT
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+LazyData: true
+Built: R 4.4.1; ; 2025-05-27 19:00:14 UTC; unix

@@ -6,10 +6,11 @@
 #' @export
 load_stopwords <- function(format = "csv") {
   if (format == "csv") {
-    file_path <- system.file("data", "stopwords_tr.csv", package = "shoppingwords")
+    file_path <- system.file("extdata/stopwords/v1.0", "stopwords_tr.csv", package = "shoppingwords")
     if (file_path == "") stop("File does not exist in the package.")
     return(readr::read_csv(file_path))
   } else {
     stop("Invalid format. Please choose 'csv'.")
   }
 }
+

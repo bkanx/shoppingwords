@@ -1,0 +1,35 @@
+#' Normalize stopwords
+#' This function loads stopwords from a CSV file within the package.
+#' @param text Input word to normalize
+#' @import stringi
+#' @importFrom stringdist amatch
+#' @import stopwords
+#' @return Normalized version of the input word
+#' @export
+#' @examples
+#' user_input <- "Göre"
+#' match <- amatch("göre", stopwords_all, method = "lv", maxDist = 1)
+#' normalized_input <- normalize_text(user_input)
+normalize_text <- function(text) {
+  text <- tolower(text)
+  transfer <- stringi::stri_trans_general(text, "Latin-ASCII") # Converts "göre" → "gore"
+  transfer_index <- stringdist::amatch(text, stopwords_tr$stopwords_all, method = "lv", maxDist = 1)
+  transfer_word <- stopwords_tr$stopwords_all[transfer_index]
+  if (!is.na(transfer_index)) {
+    return(list(index = transfer_index, transfer_word)) # Return matched word from shoppingwords_tr
+  } else {
+    # Fallback to stopwords_iso if no match found
+    stopwords_iso <- stopwords("tr", source = "stopwords-iso")
+    iso_transfer_index <- stringdist::amatch(transfer, stopwords_iso, method = "lv", maxDist = 1)
+    iso_transfer_word <- stopwords_iso[iso_transfer_index]
+
+    if (!is.na(iso_transfer_index)) {
+      message(sprintf("\n%-30s", "Using shoppingwords_tr → No match found"))
+      message(sprintf("\n%-30s", "Using stopwords_iso → Index Info:"))
+      return(list(iso_index = iso_transfer_index,iso_transfer_word))  # Return matched word from stopwords_iso
+    } else {
+      return(NA) # No match found in either list
+    }
+  }
+}
+

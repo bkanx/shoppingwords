@@ -1,8 +1,10 @@
-#' Load predefined stopwords
+#' Load predefined stopwords list for Turkish shopping-related text analysis
 #'
-#' This function loads stopwords from a CSV file within the package.
+#' This function retrieves a predefined list of 92 stopwords from a CSV file
+#' stored within the package. These stopwords are commonly used in Turkish
+#' shopping-related text data
 #' @param format Character string specifying the format. Default is "csv".
-#' @return A tibble with stopwords.
+#' @return A tibble containing predefined Turkish stopwords shopping based-special.
 #' @export
 load_stopwords <- function(format = "csv") {
   if (format == "csv") {

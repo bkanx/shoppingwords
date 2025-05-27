@@ -2,18 +2,23 @@
 % Please edit documentation in R/normalize_text.R
 \name{normalize_text}
 \alias{normalize_text}
-\title{Normalize stopwords
-This function loads stopwords from a CSV file within the package.}
+\title{Normalize Stopwords in Text}
 \usage{
 normalize_text(text)
 }
 \arguments{
-\item{text}{Input word to normalize}
+\item{text}{Character string representing the word to normalize.}
 }
 \value{
-Normalized version of the input word
+A list containing the matched word and its corresponding index, or \code{NULL} if no match is found.
 }
 \description{
-Normalize stopwords
-This function loads stopwords from a CSV file within the package.
+This function checks whether a given word is present in a predefined stopwords list.
+It first searches the package's internal stopwords dataset (\code{stopwords_tr}), and if
+no match is found, it falls back to the broader \code{stopwords_iso} list.
+}
+\details{
+The function converts text to a standard format by removing accents and special characters,
+transforming it into basic Latin characters, and making all letters lowercase.
+This ensures more accurate word comparisons.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/load_stopwords.R
 \name{load_stopwords}
 \alias{load_stopwords}
-\title{Load predefined stopwords}
+\title{Load predefined stopwords list for Turkish shopping-related text analysis}
 \usage{
 load_stopwords(format = "csv")
 }
@@ -10,8 +10,10 @@ load_stopwords(format = "csv")
 \item{format}{Character string specifying the format. Default is "csv".}
 }
 \value{
-A tibble with stopwords.
+A tibble containing predefined Turkish stopwords shopping based-special.
 }
 \description{
-This function loads stopwords from a CSV file within the package.
+This function retrieves a predefined list of 92 stopwords from a CSV file
+stored within the package. These stopwords are commonly used in Turkish
+shopping-related text data
 }

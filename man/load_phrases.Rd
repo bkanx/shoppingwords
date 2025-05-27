@@ -2,7 +2,10 @@
 % Please edit documentation in R/load_phrases.R
 \name{load_phrases}
 \alias{load_phrases}
-\title{Load predefined phrases}
+\title{Load Predefined Phrases from Package Data#'
+This function loads predefined phrases from a CSV file within the package.
+It allows users to access common shopping related special phrases easily for
+text processing or linguistic analysis.}
 \usage{
 load_phrases(format = "csv")
 }
@@ -10,8 +13,11 @@ load_phrases(format = "csv")
 \item{format}{Character string specifying the format. Default is "csv".}
 }
 \value{
-A tibble with predefined phrases.
+A tibble containing the predefined phrases.
 }
 \description{
+Load Predefined Phrases from Package Data#'
 This function loads predefined phrases from a CSV file within the package.
+It allows users to access common shopping related special phrases easily for
+text processing or linguistic analysis.
 }

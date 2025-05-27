@@ -2,18 +2,19 @@
 % Please edit documentation in R/load_corrected_words.R
 \name{load_corrected_words}
 \alias{load_corrected_words}
-\title{Load dataset
-This function loads corrected words from reviews and from a CSV (json) file within the package.}
+\title{Load Corrected Words Dataset}
 \usage{
 load_corrected_words(format = "csv")
 }
 \arguments{
-\item{format}{The file format to load ("csv", or "json")}
+\item{format}{The format of the dataset to load. Options: \code{"csv"} or \code{"json"}.
+Default is \code{"csv"}.}
 }
 \value{
-A data frame
+A data frame containing corrected word mappings.
 }
 \description{
-Load dataset
-This function loads corrected words from reviews and from a CSV (json) file within the package.
+This function loads a predefined dataset of corrected words from within the package.
+Users can choose between CSV or JSON format. The function restructures CSV data into
+a long format for easier text analysis.
 }

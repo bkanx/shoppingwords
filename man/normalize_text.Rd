@@ -17,8 +17,3 @@ Normalized version of the input word
 Normalize stopwords
 This function loads stopwords from a CSV file within the package.
 }
-\examples{
-user_input <- "Göre"
-match <- amatch("göre", stopwords_all, method = "lv", maxDist = 1)
-normalized_input <- normalize_text(user_input)
-}

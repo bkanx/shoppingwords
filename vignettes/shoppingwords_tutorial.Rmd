@@ -121,9 +121,14 @@ stopwords::stopwords("tr", source = "stopwords-iso")[1:15]
 The `load_phrases()` function retrieves predefined shopping-related phrases from a CSV file stored within the package. 
 
 
-```{r, message=FALSE, eval=FALSE}
+```{r, message=FALSE}
 # Load predefined Turkish shopping based phrases
 shopping_phrases <- load_phrases("csv")
+```
+
+```{r, message=FALSE, echo=FALSE}
+shopping_phrases <- load_phrases("csv")
+kable(head(shopping_phrases))
 ```
 
 

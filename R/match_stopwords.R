@@ -35,7 +35,7 @@ match_stopwords <- function(df) {
   }
 
   # Apply cleaning function to all rows
-  df$cleaned_text <- sapply(df$text, clean_text)
+  df$cleaned_text <- sapply(df$comment, clean_text)
 
   return(df)
 }

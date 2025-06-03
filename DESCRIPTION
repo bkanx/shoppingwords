@@ -23,7 +23,7 @@ Authors@R:
             email = "cr173@duke.edu",
             role = c("aut"),
             ))
-Imports: readr (>= 2.0.0), tidyr (>= 1.3.0), jsonlite, stringi, stopwords, stringdist, tidyselect, tibble, devtools
+Imports: readr (>= 2.0.0), tidyr (>= 1.3.0), jsonlite, stringi, stopwords, stringdist, tidyselect, tibble, devtools, kableExtra
 Depends: R (>= 4.0.0)
 Description: It includes the collection of words from user reviews that were captured from an online shopping platform.
 License: MIT + file LICENSE

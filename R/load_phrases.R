@@ -7,8 +7,13 @@
 #' @export
 load_phrases <- function(format = "csv") {
   if (format == "csv") {
-    file_path <- system.file("data", "phrases.csv", package = "shoppingwords")
+    file_path <- system.file("extdata", "phrases.csv", package = "shoppingwords")
+
+    # Debugging: Print file path during execution
+    print(paste("Loading file from:", file_path))
+
     if (file_path == "") stop("ERROR: File does not exist in the package.")
+
     return(readr::read_csv(file_path))
   } else {
     stop("ERROR: Invalid format. Please choose 'csv'.")

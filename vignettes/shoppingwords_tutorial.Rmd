@@ -1,8 +1,9 @@
 ---
 title: "shoppingwords: A Guide to Using the Package"
 output: rmarkdown::html_vignette
+date: "`r Sys.Date()`"
 vignette: >
-  %\VignetteIndexEntry{shoppingwords_tutorial}
+  %\VignetteIndexEntry{shoppingwords: A Guide to Using the Package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,7 +19,7 @@ knitr::opts_chunk$set(
 
 The shoppingwords package provides functions for loading, normalizing, and analyzing textual data, primarily from reviews. This tutorial will cover:
 
- ### Installation
+### Installation
 Before using shoppingwords, install it from GitHub:
 
 ```{r, message=FALSE}
@@ -34,7 +35,7 @@ install.packages("shoppingwords")
 
 
 ### Loading datasets
-The package stores review data in an optimized RDS format for fast access. Load it using:
+The package stores review data in an optimized RDS format for fast access. The `load_reviews()` function loads the main dataset of corrected words or product reviews from an RDS file stored within the package. If the file is missing, the function returns an empty tibble with the expected column names. Load it using:
 
 ```{r}
 reviews_data <- load_reviews()
@@ -42,16 +43,17 @@ reviews_data <- load_reviews()
 
 Returns: A tibble with review IDs and text content. Check the first few rows:
 
-```{r}
+```{r, echo =FALSE}
 library(knitr)
-kable(head(reviews_data))
+library(kableExtra)
+kable(head(reviews_data)) |> kable_styling(font_size = 10)
 ```
 
 ### Cleaning text
 
-match_stopwords() is a function that processes user reviews by removing predefined stopwords while preserving the original rating scores. It takes a dataframe with "comment" and "rating" columns, cleans each review by filtering out stopwords from both custom stopword lists and stopwords-iso, and returns a dataframe with an additional "cleaned_text" column for further analysis. This function helps in text normalization for sentiment analysis and rating-based insights.
+The `match_stopwords()` is a function that processes user reviews by removing predefined stopwords while preserving the original rating scores. It takes a dataframe with "comment" and "rating" columns, cleans each review by filtering out stopwords from both custom stopword lists and stopwords-iso, and returns a dataframe with an additional "cleaned_text" column for further analysis. This function helps in text normalization for sentiment analysis and rating-based insights.
 
-```{r, message=FALSE}
+```{r, message=FALSE, eval=FALSE}
 # Example
 library(tibble)
 reviews_sample <- tibble(
@@ -60,8 +62,69 @@ reviews_sample <- tibble(
     rating = c(4.5, 3.0)
 )
 
-(cleaned_sample <- kable(match_stopwords(reviews_sample)))
+cleaned_sample <- match_stopwords(reviews_sample)
+```
+
+```{r, echo=FALSE, message=FALSE}
+library(tibble)
+reviews_sample <- tibble(
+    comment = c("Bu ürün gerçekten çok iyi ancak fiyatı sadece yüksek gibi", 
+                "Fiyat çok pahalı ama kaliteli iyi"), 
+    rating = c(4.5, 3.0)
+)
+cleaned_sample <- match_stopwords(reviews_sample)
+kable(cleaned_sample)
 ```
 
 
+## Loading Corrected words
+The `load_corrected_words()` function allows users to load a predefined dataset of corrected words from within the package. Users can choose between **CSV** or **JSON** format. The function restructures CSV data into a **long format** for easier text analysis.
 
+
+```{r, message=FALSE}
+library(shoppingwords)
+# Load corrected words as a CSV file
+corrected_words_csv <- load_corrected_words("csv")
+```
+
+```{r, message=FALSE, echo=FALSE}
+library(shoppingwords)
+# Load corrected words as a CSV file
+corrected_words_csv <- load_corrected_words("csv")
+kable(tail(corrected_words_csv, 2))
+```
+
+```{r, message=FALSE}
+# Load corrected words as a JSON file
+corrected_words_json <- load_corrected_words("json")[1:15]
+str(corrected_words_json)
+```
+
+### Loading stopwords
+The `load_stopwords()` function retrieves a predefined list of 92 stopwords from a CSV file stored within the package. These stopwords are commonly found in Turkish shopping-related text and are useful for text preprocessing and analysis.
+
+```{r, message=FALSE}
+# Load predefined Turkish stopwords
+stopwords_tr <- load_stopwords("csv")
+```
+
+```{r, message=FALSE, echo=FALSE}
+kable(head(stopwords_tr, 10))
+```
+
+```{r, message=FALSE}
+# or load a few stopwords from stopwords-iso 
+stopwords::stopwords("tr", source = "stopwords-iso")[1:15]
+```
+
+### Loading Phrases
+The `load_phrases()` function retrieves predefined shopping-related phrases from a CSV file stored within the package. 
+
+
+```{r, message=FALSE, eval=FALSE}
+# Load predefined Turkish shopping based phrases
+shopping_phrases <- load_phrases("csv")
+```
+
+
+These phrases assist in text processing, linguistic analysis, and Natural Language Processing (NLP) applications, making it easier to analyze customer behavior and responses.

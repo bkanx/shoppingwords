@@ -4,7 +4,7 @@
 \alias{match_stopwords}
 \title{Normalize Stopwords in Text}
 \usage{
-match_stopwords(text)
+match_stopwords(df)
 }
 \arguments{
 \item{text}{Character string representing the word to normalize.}

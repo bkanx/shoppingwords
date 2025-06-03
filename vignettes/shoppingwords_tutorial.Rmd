@@ -45,27 +45,19 @@ Returns: A tibble with review IDs and text content. Check the first few rows:
 head(reviews_data)
 ```
 
-### Normalizing text
+### Cleaning text
 
-The matched_stopwords() function matches words against stopwords lists and performs fuzzy string searches. It emphasizes finding words in stopword lists.
+match_stopwords() is a function that processes user reviews by removing predefined stopwords while preserving the original rating scores. It takes a dataframe with "comment" and "rating" columns, cleans each review by filtering out stopwords from both custom stopword lists and stopwords-iso, and returns a dataframe with an additional "cleaned_text" column for further analysis. This function helps in text normalization for sentiment analysis and rating-based insights.
 
 ```{r}
-matched <- matched_stopwords("göre")
-print(matched)
+# Example
+reviews_sample <- data.frame(
+    text = c("Bu ürün gerçekten çok iyi ancak fiyatı sadece yüksek gibi", "Fiyat çok pahalı ama kaliteli iyi"),
+    rating = c(4.5, 3.0)
+)
+
+(cleaned_reviews <- match_stopwords(reviews_sample))
 ```
-Removes diacritics and special characters. Matches the word against stopwords lists.
 
-### Example
 
-Here’s a sample analysis workflow:
-```{r}
-# Load reviews
-reviews_data <- load_reviews()
-
-# Normalize text in reviews
-reviews_data$matched_stopwords <- sapply(reviews_data$comment, matched_words)
-
-# View results
-head(reviews_data)
-```
 

@@ -14,7 +14,7 @@
 #' @importFrom stringdist amatch
 #' @import stopwords
 #' @export
-normalize_text <- function(text) {
+match_stopwords <- function(text) {
   # Load stopwords directly from the package
   stopwords_tr <- load_stopwords("csv")
   text <- tolower(text)

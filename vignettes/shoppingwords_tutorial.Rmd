@@ -1,0 +1,71 @@
+---
+title: "shoppingwords: A Guide to Using the Package"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{shoppingwords_tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+### Overview
+
+The shoppingwords package provides functions for loading, normalizing, and analyzing textual data, primarily from reviews. This tutorial will cover:
+
+ ### Installation
+Before using shoppingwords, install it from GitHub:
+
+```{r}
+devtools::install_github("bkanx/shoppingwords")
+library(shoppingwords)
+```
+
+If submitting to CRAN, users can install it via:
+
+```{r}
+# install.packages("shoppingwords")
+```
+
+
+### Loading datasets
+The package stores review data in an optimized RDS format for fast access. Load it using:
+
+```{r}
+reviews_data <- load_reviews()
+```
+Returns: A tibble with review IDs and text content. Check the first few rows:
+
+```{r}
+head(reviews_data)
+```
+
+### Normalizing text
+
+The matched_stopwords() function matches words against stopwords lists and performs fuzzy string searches. It emphasizes finding words in stopword lists.
+
+```{r}
+matched <- matched_stopwords("göre")
+print(matched)
+```
+Removes diacritics and special characters. Matches the word against stopwords lists.
+
+### Example
+
+Here’s a sample analysis workflow:
+```{r}
+# Load reviews
+reviews_data <- load_reviews()
+
+# Normalize text in reviews
+reviews_data$matched_stopwords <- sapply(reviews_data$comment, matched_words)
+
+# View results
+head(reviews_data)
+```
+

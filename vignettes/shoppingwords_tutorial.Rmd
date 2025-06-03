@@ -39,10 +39,12 @@ The package stores review data in an optimized RDS format for fast access. Load 
 ```{r}
 reviews_data <- load_reviews()
 ```
+
 Returns: A tibble with review IDs and text content. Check the first few rows:
 
 ```{r}
-head(reviews_data)
+library(knitr)
+kable(head(reviews_data))
 ```
 
 ### Cleaning text
@@ -51,12 +53,13 @@ match_stopwords() is a function that processes user reviews by removing predefin
 
 ```{r}
 # Example
-reviews_sample <- data.frame(
-    text = c("Bu ürün gerçekten çok iyi ancak fiyatı sadece yüksek gibi", "Fiyat çok pahalı ama kaliteli iyi"),
-    rating = c(4.5, 3.0)
+library(tibble)
+reviews_sample <- tibble(
+    comment = c("Bu ürün gerçekten çok iyi ancak fiyatı sadece yüksek gibi", "Fiyat çok pahalı ama kaliteli iyi"), rating = c(4.5, 3.0)
 )
 
-(cleaned_reviews <- match_stopwords(reviews_sample))
+(cleaned_sample <- match_stopwords(reviews_sample))
+cleaned_sample
 ```
 
 

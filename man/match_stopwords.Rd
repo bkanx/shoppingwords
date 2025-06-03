@@ -2,23 +2,23 @@
 % Please edit documentation in R/match_stopwords.R
 \name{match_stopwords}
 \alias{match_stopwords}
-\title{Normalize Stopwords in Text}
+\title{Remove Stopwords from User Reviews}
 \usage{
 match_stopwords(df)
 }
 \arguments{
-\item{text}{Character string representing the word to normalize.}
+\item{df}{Dataframe containing user reviews, with required columns \code{"comment"} (text) and \code{"rating"} (numerical score).}
 }
 \value{
-A list containing the matched word and its corresponding index, or \code{NULL} if no match is found.
+A modified dataframe with an additional \code{"cleaned_text"} column containing stopword-free text.
 }
 \description{
-This function checks whether a given word is present in a predefined stopwords list.
+This function processes a dataframe containing user reviews and removes predefined stopwords.
 It first searches the package's internal stopwords dataset (\code{stopwords_tr}), and if
 no match is found, it falls back to the broader \code{stopwords_iso} list.
 }
 \details{
-The function converts text to a standard format by removing accents and special characters,
-transforming it into basic Latin characters, and making all letters lowercase.
-This ensures more accurate word comparisons.
+The function converts text to a standardized format by removing accents and special characters,
+transforming it into basic Latin characters, and making all letters lowercase. It then
+tokenizes the text, filters out stopwords, and returns the cleaned version.
 }

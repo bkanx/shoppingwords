@@ -21,15 +21,15 @@ The shoppingwords package provides functions for loading, normalizing, and analy
  ### Installation
 Before using shoppingwords, install it from GitHub:
 
-```{r}
+```{r, message=FALSE}
 devtools::install_github("bkanx/shoppingwords")
 library(shoppingwords)
 ```
 
 If submitting to CRAN, users can install it via:
 
-```{r}
-# install.packages("shoppingwords")
+```{r, eval=FALSE}
+install.packages("shoppingwords")
 ```
 
 
@@ -51,15 +51,16 @@ kable(head(reviews_data))
 
 match_stopwords() is a function that processes user reviews by removing predefined stopwords while preserving the original rating scores. It takes a dataframe with "comment" and "rating" columns, cleans each review by filtering out stopwords from both custom stopword lists and stopwords-iso, and returns a dataframe with an additional "cleaned_text" column for further analysis. This function helps in text normalization for sentiment analysis and rating-based insights.
 
-```{r}
+```{r, message=FALSE}
 # Example
 library(tibble)
 reviews_sample <- tibble(
-    comment = c("Bu ürün gerçekten çok iyi ancak fiyatı sadece yüksek gibi", "Fiyat çok pahalı ama kaliteli iyi"), rating = c(4.5, 3.0)
+    comment = c("Bu ürün gerçekten çok iyi ancak fiyatı sadece yüksek gibi", 
+                "Fiyat çok pahalı ama kaliteli iyi"), 
+    rating = c(4.5, 3.0)
 )
 
-(cleaned_sample <- match_stopwords(reviews_sample))
-cleaned_sample
+(cleaned_sample <- kable(match_stopwords(reviews_sample)))
 ```
 
 

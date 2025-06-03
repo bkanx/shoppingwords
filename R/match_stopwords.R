@@ -7,7 +7,6 @@
 #' The function converts text to a standardized format by removing accents and special characters,
 #' transforming it into basic Latin characters, and making all letters lowercase. It then
 #' tokenizes the text, filters out stopwords, and returns the cleaned version.
-#'
 #' @param df Dataframe containing user reviews, with required columns `"comment"` (text) and `"rating"` (numerical score).
 #' @return A modified dataframe with an additional `"cleaned_text"` column containing stopword-free text.
 #' @import stringi

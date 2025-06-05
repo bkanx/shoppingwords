@@ -15,14 +15,14 @@ Authors@R:
     person(
             given = "Mine",
             family = "Çetinkaya-Rundel",
-            email = "mc301@duke.edu",
-            role = c("aut"),
+            email = "cetinkaya.mine@gmail.com",
+            role = c("ctb"),
             ),
     person(
             given = "Colin",
             family = "Rundel",
             email = "cr173@duke.edu",
-            role = c("aut"),
+            role = c("ctb"),
             ))
 Imports: readr (>= 2.0.0), tidyr (>= 1.3.0), jsonlite, stringi, stopwords, stringdist, tidyselect, tibble
 Depends: R (>= 4.0.0)

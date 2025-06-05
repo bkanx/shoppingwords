@@ -24,7 +24,7 @@ Authors@R:
             email = "cr173@duke.edu",
             role = c("aut"),
             ))
-Imports: readr (>= 2.0.0), tidyr (>= 1.3.0), jsonlite, stringi, stopwords, stringdist, tidyselect, tibble, devtools, kableExtra
+Imports: readr (>= 2.0.0), tidyr (>= 1.3.0), jsonlite, stringi, stopwords, stringdist, tidyselect, tibble
 Depends: R (>= 4.0.0)
 License: MIT + file LICENSE
 Encoding: UTF-8

@@ -16,11 +16,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-### Overview
+# Overview
 
 The shoppingwords package provides functions for loading, normalizing, and analyzing textual data, primarily from reviews. This tutorial will cover:
 
-### Installation
+# Installation
 
 Before using shoppingwords, install it from CRAN via:
 
@@ -42,7 +42,9 @@ Then, load the package with:
 library(shoppingwords)
 ```
 
-### Loading datasets
+
+
+# Loading datasets
 The package stores review data in an optimized RDS format for fast access. The `load_reviews()` function loads the main dataset of corrected words or product reviews from an RDS file stored within the package. If the file is missing, the function returns an empty tibble with the expected column names. Load it using:
 
 ```{r}
@@ -58,7 +60,7 @@ library(kableExtra)
 kable(head(reviews_data)) |> kable_styling(font_size = 10)
 ```
 
-### Cleaning text
+# Cleaning text
 
 The `match_stopwords()` is a function that processes user reviews by removing predefined stopwords while preserving the original rating scores. It takes a dataframe with "comment" and "rating" columns, cleans each review by filtering out stopwords from both custom stopword lists and stopwords-iso, and returns a dataframe with an additional "cleaned_text" column for further analysis. This function helps in text normalization for sentiment analysis and rating-based insights.
 
@@ -117,7 +119,7 @@ corrected_words_json <- load_corrected_words("json")[1:15]
 str(corrected_words_json)
 ```
 
-### Loading stopwords
+# Loading stopwords
 The `load_stopwords()` function retrieves a predefined list of 92 stopwords from a CSV file stored within the package. These stopwords are commonly found in Turkish shopping-related text and are useful for text preprocessing and analysis.
 
 ```{r}
@@ -138,7 +140,7 @@ kable(head(stopwords_tr, 10))
 stopwords::stopwords("tr", source = "stopwords-iso")[1:15]
 ```
 
-### Loading Phrases
+# Loading Phrases
 The `load_phrases()` function retrieves predefined shopping-related phrases from a CSV file stored within the package. 
 
 

@@ -285,7 +285,7 @@ The testdata can be used in various ways such as capturing the negative expressi
 
 
 # References
-Kan, B., Cetinkaya-Rundel, M. & Rundel, C. (2023). shoppingwords: Text Processing Tools for Turkish E-Commerce Data. R package version 0.1.0.
+Kan-Kilinc, B., Cetinkaya-Rundel, M. & Rundel, C. (2023). shoppingwords: Text Processing Tools for Turkish E-Commerce Data. R package version 0.1.0.
 Available at: https://github.com/bkanx/shoppingwords
 
 

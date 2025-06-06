@@ -46,24 +46,139 @@ library(knitr)
 library(tibble)
 ```
 
-# Loading datasets
+# Loading Datasets
 
-The package stores review data in an optimized RDS format for fast access. The `load_reviews()` function loads the main dataset of corrected words or product reviews from an RDS file stored within the package. If the file is missing, the function returns an empty tibble with the expected column names. Load it using:
+The **ShoppingWords** package provides several datasets useful for text processing and analysis. This vignette introduces the datasets stored in the `datasets/` folder, explaining their contents and showing how to load them into R.
+
+The **`load_dataset()`** function provides a convenient way to load datasets by specifying their name and format.
+
+## Available Datasets
+
+The following datasets are included in the package:
+
+| Dataset Name                 | Format  | Description |
+|-----------------------------|--------|-------------|
+| `corrected_words_10137.csv`  | CSV    | A collection of corrected words for text normalization. |
+| `corrected_words_10137.json` | JSON   | The same corrected words dataset, stored in JSON format. |
+| `corrected_words_10137.rds`  | RDS    | Serialized version of corrected words for quick loading. |
+| `phrases.csv`                | CSV    | A dataset containing predefined phrases for analysis. |
+| `review_raw_v1_1.rds`        | RDS    | Raw review data for sentiment analysis and NLP tasks. |
+| `stopwords_tr.csv`           | CSV    | A list of Turkish stopwords including shopping-based terms for text preprocessing. |
+| `testdata.csv`               | CSV    | Sample test data including sentence-based polarity for further NLP tasks. |
+
+
+### Loading Reviews Dataset
+
+The package stores review data in an optimized RDS format for fast access. The **`load_dataset()`** function loads the main dataset of product reviews from an RDS file stored within the package. 
+
+#### **Dataset Structure**
+| Column   | Description |
+|----------|-------------|
+| `rating` | Numerical rating (1-5) from user reviews. |
+| `text`   | Review content, including product opinions. |
+|
+
 
 ```{r}
-reviews_data <- load_reviews()
+#| message: false
+#| eval: false
+# Load reviews from RDS
+reviews <- load_dataset("review_raw_v1_1", "rds") 
+head(reviews, 3)
+str(reviews)
 ```
 
-Returns: A tibble with review IDs and text content. Check the first few rows:
 
 ```{r}
-head(reviews_data) |>
-  kable()
+#| message: false
+#| echo: false
+# Load reviews from RDS
+reviews <- load_dataset("review_raw_v1_1", "rds") 
+head(reviews, 3)
+str(reviews)
 ```
 
-# Cleaning text
+
+### Loading Corrected Words
+
+The `load_dataset()` function allows users to load a predefined dataset of corrected words from within the package. Users can choose between **CSV**, **RDS** or **JSON** format. The function restructures CSV data into a **long format** for easier text analysis.
+
+
+```{r}
+#| message: false
+#| eval: false
+# Load corrected words from JSON
+corrected_words <- load_dataset("corrected_words_10137", "json")
+```
+
+
+```{r}
+#| message: false
+#| echo: false
+# Load corrected words from JSON
+corrected_words <- load_dataset("corrected_words_10137", "json")[c(41,44,68)]
+head(corrected_words)
+```
+
+
+
+### Loading Stopwords
+
+The `load_dataset()` function also retrieves a predefined list of 92 stopwords from a CSV file stored within the package. These stopwords are commonly found in Turkish shopping-related text and are useful for text preprocessing and analysis. stopwords_tr is a dataset specific to Turkish stopwords.
+
+```{r}
+#| message: false
+#| eval: false
+# Load Turkish shopping-based stopwords from csv
+stopwords <- load_dataset("stopwords_tr", "csv")
+
+```
+
+```{r}
+#| message: false
+#| echo: false
+# Load Turkish shopping-based stopwords from csv
+stopwords <- shoppingwords::load_dataset("stopwords_tr", "csv")
+stopwords |> dplyr::slice(38:41)
+```
+
+stopwords-iso is a standardized multilingual stopword collection, including Turkish but potentially with broader coverage.
+
+```{r}
+#| message: false
+#| echo: false
+# or load a few stopwords from stopwords-iso 
+stopwords::stopwords("tr", source = "stopwords-iso") |> head()
+
+```
+Using both datasets reduces the risk of missing critical stopwords that could skew sentiment or topic modeling results.
+
+
+### Loading Phrases
+
+The `load_dataset()` function also retrieves predefined shopping-related phrases from a CSV file stored within the package. 
+
+```{r}
+#| message: false
+#| eval: false
+# Load predefined Turkish shopping-based phrases
+shopping_phrases <- load_dataset("phrases","csv")
+```
+
+```{r}
+#| message: false
+#| echo: false
+shopping_phrases <- load_dataset("phrases","csv")
+head(shopping_phrases)
+```
+
+These phrases assist in text processing, linguistic analysis, and Natural Language Processing (NLP) applications, making it easier to analyze customer behavior and responses.
+
+
+### Cleaning text
 
 The `match_stopwords()` is a function that processes user reviews by removing predefined stopwords while preserving the original rating scores. It takes a dataframe with "comment" and "rating" columns, cleans each review by filtering out stopwords from both custom stopword lists and stopwords-iso, and returns a dataframe with an additional "cleaned_text" column for further analysis. This function helps in text normalization for sentiment analysis and rating-based insights.
+
 
 ```{r}
 #| message: false
@@ -87,75 +202,39 @@ reviews_sample <- tibble(
     rating = c(4.5, 3.0)
 )
 cleaned_sample <- match_stopwords(reviews_sample)
-kable(cleaned_sample)
+kable(cleaned_sample) 
 ```
 
 
-## Loading Corrected words
+## Sentiment Polarity Dataset
 
-The `load_corrected_words()` function allows users to load a predefined dataset of corrected words from within the package. Users can choose between **CSV** or **JSON** format. The function restructures CSV data into a **long format** for easier text analysis.
+The `shoppingwords` package also includes a **sentiment polarity dataset** for text mining and NLP tasks. This dataset contains user-generated reviews labeled as **positive (`p`)** or **negative (`n`)**, being different than reviews data and making it useful for training models in sentiment classification.
 
+#### **Dataset Structure**
+| Column   | Description |
+|----------|-------------|
+| `rating` | Numerical rating (1-5) from user reviews. |
+| `text`   | Review content, including product opinions. |
+| `emotion` | Sentiment label (`p`: positive, `n`: negative). |
 
-```{r}
-# Load corrected words as a CSV file
-corrected_words_csv <- load_corrected_words("csv")
-```
+### **Loading the Testdata**
 
-```{r}
-#| message: false
-#| echo: false
-
-# Load corrected words as a CSV file
-corrected_words_csv <- load_corrected_words("csv")
-kable(tail(corrected_words_csv, 2))
-```
-
-```{r}
-#| message: false
-# Load corrected words as a JSON file
-corrected_words_json <- load_corrected_words("json")[1:15]
-str(corrected_words_json)
-```
-
-# Loading stopwords
-
-The `load_stopwords()` function retrieves a predefined list of 92 stopwords from a CSV file stored within the package. These stopwords are commonly found in Turkish shopping-related text and are useful for text preprocessing and analysis.
-
-```{r}
-#| message: false
-# Load predefined Turkish stopwords
-stopwords_tr <- load_stopwords("csv")
-```
 
 ```{r}
 #| message: false
 #| echo: false
-head(stopwords_tr, 10) |>
-  kable()
+# Load polarity dataset
+polarity_data <- load_dataset("testdata", "csv")
+head(polarity_data)
 ```
+
+Once loaded, users can analyze the dataset:
 
 ```{r}
 #| message: false
-# or load a few stopwords from stopwords-iso 
-stopwords::stopwords("tr", source = "stopwords-iso")[1:15]
+library(dplyr)
+
+# Count positive vs. negative reviews
+polarity_data |> 
+  count(emotion, sort = TRUE)
 ```
-
-# Loading Phrases
-
-The `load_phrases()` function retrieves predefined shopping-related phrases from a CSV file stored within the package. 
-
-```{r}
-#| message: false
-# Load predefined Turkish shopping based phrases
-shopping_phrases <- load_phrases("csv")
-```
-
-```{r}
-#| message: false
-#| echo: false
-shopping_phrases <- load_phrases("csv")
-head(shopping_phrases) |>
-  kable()
-```
-
-These phrases assist in text processing, linguistic analysis, and Natural Language Processing (NLP) applications, making it easier to analyze customer behavior and responses.

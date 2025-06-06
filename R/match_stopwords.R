@@ -15,7 +15,7 @@
 #' @export
 match_stopwords <- function(df) {
   # Load stopwords
-  stopwords_tr <- load_stopwords("csv")$stopwords_all
+  stopwords_tr <- load_dataset("stopwords_tr","csv")$stopwords_all
   stopwords_iso <- stopwords("tr", source = "stopwords-iso")
 
   # Ensure text column exists

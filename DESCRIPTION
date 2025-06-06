@@ -33,5 +33,7 @@ RoxygenNote: 7.3.2
 LazyData: true
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    tibble,
+    dplyr,
 VignetteBuilder: knitr

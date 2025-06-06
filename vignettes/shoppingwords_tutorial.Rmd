@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 # Overview
 
-The shoppingwords package provides functions for loading, normalizing, and analyzing textual data, primarily from reviews. This tutorial will cover:
+The shoppingwords package provides functions for loading, normalizing, and analyzing textual data, primarily from user reviews. This tutorial covers dataset loading from CSV, JSON, and RDS formats, as well as text normalization by removing stopwords, extracting phrases, and includes labeled polarity datasets.
 
 # Installation
 
@@ -38,19 +38,20 @@ pak::pak("bkanx/shoppingwords")
 
 # Packages
 
-For this vignette we will use the shoppingwords, knitr, kableExtra, and tibble packages:
+For this vignette we will use the shoppingwords, knitr, kableExtra, tibble, and dplyr packages:
 
 ```{r}
+#| message: false
 library(shoppingwords)
 library(knitr)
 library(tibble)
+library(dplyr)
 ```
 
 # Loading Datasets
 
-The **ShoppingWords** package provides several datasets useful for text processing and analysis. This vignette introduces the datasets stored in the `datasets/` folder, explaining their contents and showing how to load them into R.
+The **shoppingwords** package provides several datasets useful for text processing and analysis. This section introduces the datasets stored in the `datasets/` folder, explaining their contents and showing how to load them into R.
 
-The **`load_dataset()`** function provides a convenient way to load datasets by specifying their name and format.
 
 ## Available Datasets
 
@@ -66,6 +67,8 @@ The following datasets are included in the package:
 | `stopwords_tr.csv`           | CSV    | A list of Turkish stopwords including shopping-based terms for text preprocessing. |
 | `testdata.csv`               | CSV    | Sample test data including sentence-based polarity for further NLP tasks. |
 
+
+The review_**`raw_v1_1.rds`** dataset is the core component of the shoppingwords package, designed for text analysis, sentiment scoring, or NLP tasks (e.g., customer feedback mining). The **`load_dataset()`** function provides a convenient way to load datasets by specifying their name and format.
 
 ### Loading Reviews Dataset
 
@@ -98,20 +101,35 @@ head(reviews, 3)
 str(reviews)
 ```
 
-The **`review_raw_v1_1.rds`** data is 
+All other functions (e.g., stopword removal, phrase analysis) are optimized for the **`review_raw_v1_1.rds`** dataset. It enables analysis of Turkish e-commerce reviews (e.g., rating scores, common complaints).
+
+To demonstrate a practical analytical use case for the preprocessed review data and how the package's functions work together in a real analysis workflow is given in the Examples. The example calculates if longer reviews correlate with higher/lower ratings - a common business question in review analysis.
+
+
+```{r}
+#| message: false
+# Preprocess reviews  
+cleaned_reviews <- match_stopwords(reviews)  # Remove stopwords  
+
+# Analyze sentiment vs. ratings  
+library(dplyr)  
+cleaned_reviews |>    
+  group_by(rating) |>   
+  summarise(avg_text_length = mean(nchar(cleaned_text)))  
+```
 
 
 
 ### Loading Corrected Words
 
-The `load_dataset()` function allows users to load a predefined dataset of corrected words from within the package. Users can choose between **CSV**, **RDS** or **JSON** format. The function restructures CSV data into a **long format** for easier text analysis.
+The `load_dataset()` function allows users to load a predefined dataset of corrected words from within the package. Users can choose between **CSV**, **RDS** or **JSON** format. The function restructures CSV data into a **long format** for easier text analysis. It is a restructured spelling variants or slang (e.g., "fiyattt" → "fiyat") for further text analysis. The **˜corrected_words˜** dataset contains 10,137 pairs of commonly misspelled Turkish words and their corrected versions, particularly useful for normalizing shopping-related text.
 
 
 ```{r}
 #| message: false
 #| eval: false
 # Load corrected words from JSON
-corrected_words <- load_dataset("corrected_words_10137", "json")
+corrected_words <- load_dataset("corrected_words", "json")
 ```
 
 
@@ -119,7 +137,7 @@ corrected_words <- load_dataset("corrected_words_10137", "json")
 #| message: false
 #| echo: false
 # Load corrected words from JSON
-corrected_words <- load_dataset("corrected_words_10137", "json")[c(41,44,68)]
+corrected_words <- load_dataset("corrected_words", "json")[c(41,44,68)]
 head(corrected_words)
 ```
 
@@ -248,9 +266,48 @@ Once loaded, users can analyze the dataset:
 
 ```{r}
 #| message: false
-library(dplyr)
-
+#| 
 # Count positive vs. negative reviews
 polarity_data |> 
   count(emotion, sort = TRUE)
 ```
+
+Summarizing the occurrences of rating and emotion in relation to negative and positive reviews is insightful. Notably,  204 reviews contain negative expressions even though they have been assigned a rating of 5, out of a total of 2244 reviews.
+
+```{r}
+# Occurences of rating and emotion
+polarity_data |> 
+  count(rating, emotion, sort = TRUE) |> 
+  arrange(desc(rating))
+```
+
+The testdata can be used in various ways such as capturing the negative expressions or predciting sentence-level polarity using the **`review_raw_v1_1.rds`** dataset. 
+
+
+# References
+Kan, B., Cetinkaya-Rundel, M. & Rundel, C. (2023). shoppingwords: Text Processing Tools for Turkish E-Commerce Data. R package version 0.1.0.
+Available at: https://github.com/bkanx/shoppingwords
+
+
+Wickham, H., François, R., Henry, L., Müller, K., & Vaughan, D. (2023). dplyr: A Grammar of Data Manipulation. R package version 1.1.2.
+URL: https://CRAN.R-project.org/package=dplyr
+
+
+Xie, Y. (2023). knitr: A General-Purpose Package for Dynamic Report Generation in R. R package version 1.43.
+URL: https://yihui.org/knitr/
+
+
+Zhu, H. (2021). kableExtra: Construct Complex Table with 'kable' and Pipe Syntax. R package version 1.3.4.
+URL: https://CRAN.R-project.org/package=kableExtra
+
+
+Müller, K., & Wickham, H. (2023). tibble: Simple Data Frames. R package version 3.2.1.
+URL: https://CRAN.R-project.org/package=tibble
+
+
+Benoit, K., Muhr, D., & Watanabe, K. (2021). stopwords: Multilingual Stopword Lists. R package version 2.3.
+URL: https://CRAN.R-project.org/package=stopwords
+
+
+Csárdi, G. (2022). pak: A Fresh Approach to R Package Installation. R package version 0.3.1.
+URL: https://CRAN.R-project.org/package=pak

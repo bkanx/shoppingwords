@@ -98,6 +98,9 @@ head(reviews, 3)
 str(reviews)
 ```
 
+The **`review_raw_v1_1.rds`** data is 
+
+
 
 ### Loading Corrected Words
 
@@ -190,19 +193,32 @@ reviews_sample <- tibble(
     rating = c(4.5, 3.0)
 )
 
-cleaned_sample <- match_stopwords(reviews_sample)
+cleaned_sample <- match_stopwords(reviews_sample) # expects a real data frame, not a name in quotes
 ```
 
 ```{r}
 #| echo: false
 #| message: false
 reviews_sample <- tibble(
+    rating = c(4.5, 3.0),
     comment = c("Bu ürün gerçekten çok iyi ancak fiyatı sadece yüksek gibi", 
-                "Fiyat çok pahalı ama kaliteli iyi"), 
-    rating = c(4.5, 3.0)
+                "Fiyat çok pahalı ama kaliteli iyi")
+    
 )
 cleaned_sample <- match_stopwords(reviews_sample)
 kable(cleaned_sample) 
+```
+
+Alternatively, users might pass the selected reviews to match_stopwords():
+
+```{r}
+#| echo: false
+#| message: false
+# or using a few reviews from raw data 
+reviews <- load_dataset("review_raw_v1_1", "rds")
+reviews_sample <- reviews[1000:1005,]
+reviews_sample <-  match_stopwords(reviews_sample)
+kable(reviews_sample)
 ```
 
 

@@ -15,8 +15,11 @@
 #' @export
 match_stopwords <- function(df) {
   # Load stopwords
-  stopwords_tr <- load_dataset("stopwords_tr","csv")$stopwords_all
-  stopwords_iso <- stopwords("tr", source = "stopwords-iso")
+  stopwords_tr <- load_dataset("stopwords_tr","csv")
+  stopwords_tr <- stopwords_tr$stopwords_all  # Extract the column
+  stopwords_tr <- as.character(stopwords_tr)  # Convert to a standard character vector
+
+  stopwords_iso <- stopwords::stopwords("tr", source = "stopwords-iso")
 
   # Ensure text column exists
   if (!"comment" %in% colnames(df) || !"rating" %in% colnames(df)) {

@@ -230,11 +230,10 @@ kable(cleaned_sample)
 Alternatively, users might pass the selected reviews to match_stopwords():
 
 ```{r}
-#| echo: false
 #| message: false
 # or using a few reviews from raw data 
 reviews <- load_dataset("review_raw_v1_1", "rds")
-reviews_sample <- reviews[1000:1005,]
+reviews_sample <- reviews[1002:1005,]
 reviews_sample <-  match_stopwords(reviews_sample)
 kable(reviews_sample)
 ```

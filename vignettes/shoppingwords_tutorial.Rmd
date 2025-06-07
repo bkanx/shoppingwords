@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 # Overview
 
-The shoppingwords package provides functions for loading, normalizing, and analyzing textual data, primarily from user reviews. This tutorial covers dataset loading from CSV, JSON, and RDS formats, as well as text normalization by removing stopwords, extracting phrases, and includes labeled polarity datasets.
+The shoppingwords package provides functions for loading, normalizing, and analyzing textual data, primarily from user reviews. This tutorial covers dataset loading from RDA formats, as well as text normalization by removing stopwords, extracting phrases, and includes labeled polarity datasets.
 
 # Installation
 
@@ -50,7 +50,7 @@ library(dplyr)
 
 # Loading Datasets
 
-The **shoppingwords** package provides several datasets useful for text processing and analysis. This section introduces the datasets stored in the `datasets/` folder, explaining their contents and showing how to load them into R.
+The **shoppingwords** package provides several datasets useful for text processing and analysis. This section introduces the datasets stored in the `data/` folder, explaining their contents and showing how to load them into R.
 
 
 ## Available Datasets
@@ -58,35 +58,33 @@ The **shoppingwords** package provides several datasets useful for text processi
 The following datasets are included in the package:
 
 | Dataset Name                 | Format  | Description |
-|-----------------------------|--------|-------------|
-| `corrected_words_10137.csv`  | CSV    | A collection of corrected words for text normalization. |
-| `corrected_words_10137.json` | JSON   | The same corrected words dataset, stored in JSON format. |
-| `corrected_words_10137.rds`  | RDS    | Serialized version of corrected words for quick loading. |
-| `phrases.csv`                | CSV    | A dataset containing predefined phrases for analysis. |
-| `review_raw_v1_1.rds`        | RDS    | Raw review data for sentiment analysis and NLP tasks. |
-| `stopwords_tr.csv`           | CSV    | A list of Turkish stopwords including shopping-based terms for text preprocessing. |
-| `testdata.csv`               | CSV    | Sample test data including sentence-based polarity for further NLP tasks. |
+|------------------------------|--------|-------------|
+| `corrected_words.rda`        | RDA    | A collection of corrected words in Turkish for text normalization. |
+| `phrases.rda`                | RDA    | A data containing predefined Turkish phrases for analysis. |
+| `reviews.rda`                | RDA    | Turkish raw review data for sentiment analysis and NLP tasks. |
+| `stopwords_tr.rda`           | RDA   | A list of Turkish stopwords including shopping-based terms for text preprocessing. |
+| `testdata.rda`               | RDA   | Sample test data including sentence-based polarity for further NLP tasks (In Turkish). |
 
 
-The review_**`raw_v1_1.rds`** dataset is the core component of the shoppingwords package, designed for text analysis, sentiment scoring, or NLP tasks (e.g., customer feedback mining). The **`load_dataset()`** function provides a convenient way to load datasets by specifying their name and format.
+The review_**`reviews.rda`** data is the core component of the shoppingwords package, designed for text analysis, sentiment scoring, or NLP tasks (e.g., customer feedback mining). The **`data()`** function provides a convenient way to load datasets by specifying their name.
 
 ### Loading Reviews Dataset
 
-The package stores review data in an optimized RDS format for fast access. The **`load_dataset()`** function loads the main dataset of product reviews from an RDS file stored within the package. 
+The package stores **`reviews.rda`** data in an optimized RDA format for fast access. The **`data()`** function loads the main data of product reviews from an RDA file stored within the package. 
 
-#### **Dataset Structure**
+#### **Data Structure**
 | Column   | Description |
 |----------|-------------|
 | `rating` | Numerical rating (1-5) from user reviews. |
-| `text`   | Review content, including product opinions. |
+| `comment`   | Review content, including product opinions. |
 |
 
 
 ```{r}
 #| message: false
 #| eval: false
-# Load reviews from RDS
-reviews <- load_dataset("review_raw_v1_1", "rds") 
+# Load reviews from RDA
+reviews <- data("reviews", package = "shoppingwords") 
 head(reviews, 3)
 str(reviews)
 ```
@@ -95,13 +93,13 @@ str(reviews)
 ```{r}
 #| message: false
 #| echo: false
-# Load reviews from RDS
-reviews <- load_dataset("review_raw_v1_1", "rds") 
+# Load reviews from RDA
+data("reviews", package = "shoppingwords") 
 head(reviews, 3)
 str(reviews)
 ```
 
-All other functions (e.g., stopword removal, phrase analysis) are optimized for the **`review_raw_v1_1.rds`** dataset. It enables analysis of Turkish e-commerce reviews (e.g., rating scores, common complaints).
+All other functions (e.g., stopword removal, phrase analysis) are optimized for the **`reviews.rda`** data. It enables analysis of Turkish e-commerce reviews (e.g., rating scores, common complaints).
 
 To demonstrate a practical analytical use case for the preprocessed review data and how the package's functions work together in a real analysis workflow is given in the Examples. The example calculates if longer reviews correlate with higher/lower ratings - a common business question in review analysis.
 
@@ -110,6 +108,7 @@ To demonstrate a practical analytical use case for the preprocessed review data 
 #| message: false
 # Preprocess reviews  
 cleaned_reviews <- match_stopwords(reviews)  # Remove stopwords  
+head(cleaned_reviews, 3)
 
 # Analyze sentiment vs. ratings  
 library(dplyr)  
@@ -122,22 +121,23 @@ cleaned_reviews |>
 
 ### Loading Corrected Words
 
-The `load_dataset()` function allows users to load a predefined dataset of corrected words from within the package. Users can choose between **CSV**, **RDS** or **JSON** format. The function restructures CSV data into a **long format** for easier text analysis. It is a restructured spelling variants or slang (e.g., "fiyattt" → "fiyat") for further text analysis. The **˜corrected_words˜** dataset contains 10,137 pairs of commonly misspelled Turkish words and their corrected versions, particularly useful for normalizing shopping-related text.
+The `data()` function allows users to load a predefined data of corrected words from within the package. The function restructures **corrected_words.rda`** data into a **long format** for easier text analysis. It is a restructured spelling variants or slang (e.g., "fiyattt" → "fiyat") for further text analysis. The **˜corrected_words.rda˜** data contains 10,137 pairs of commonly misspelled Turkish words and their corrected versions, particularly useful for normalizing shopping-related text.
 
 
 ```{r}
 #| message: false
 #| eval: false
-# Load corrected words from JSON
-corrected_words <- load_dataset("corrected_words", "json")
+# Load corrected words from RDA
+corrected_words <- data("corrected_words", package = "shoppingwords") 
 ```
 
 
 ```{r}
 #| message: false
 #| echo: false
-# Load corrected words from JSON
-corrected_words <- load_dataset("corrected_words", "json")[c(41,44,68)]
+# Load corrected words from RDA
+data("corrected_words", package = "shoppingwords")  
+corrected_words <- get("corrected_words")  # Explicitly retrieve it as a data frame if needed
 head(corrected_words)
 ```
 
@@ -145,25 +145,25 @@ head(corrected_words)
 
 ### Loading Stopwords
 
-The `load_dataset()` function also retrieves a predefined list of 92 stopwords from a CSV file stored within the package. These stopwords are commonly found in Turkish shopping-related text and are useful for text preprocessing and analysis. stopwords_tr is a dataset specific to Turkish stopwords.
+The `data()` function also retrieves a predefined list of 92 stopwords from a RDA file stored within the package. These stopwords are commonly found in Turkish shopping-related text and are useful for text preprocessing and analysis. **`stopwords_tr`** is a data specific to Turkish stopwords.
 
 ```{r}
 #| message: false
 #| eval: false
-# Load Turkish shopping-based stopwords from csv
-stopwords <- load_dataset("stopwords_tr", "csv")
+# Load Turkish shopping-based stopwords from RDA
+stopwords_tr <- data("stopwords_tr", package = "shoppingwords") 
 
 ```
 
 ```{r}
 #| message: false
 #| echo: false
-# Load Turkish shopping-based stopwords from csv
-stopwords <- shoppingwords::load_dataset("stopwords_tr", "csv")
-stopwords |> dplyr::slice(38:41)
+# Load Turkish shopping-based stopwords from RDA
+data("stopwords_tr", package = "shoppingwords") 
+stopwords_tr |> dplyr::slice(38:41)
 ```
 
-stopwords-iso is a standardized multilingual stopword collection, including Turkish but potentially with broader coverage.
+**`stopwords-iso`** is a standardized multilingual stopword collection, including Turkish but potentially with broader coverage.
 
 ```{r}
 #| message: false
@@ -177,19 +177,19 @@ Using both datasets reduces the risk of missing critical stopwords that could sk
 
 ### Loading Phrases
 
-The `load_dataset()` function also retrieves predefined shopping-related phrases from a CSV file stored within the package. 
+The `data()` function also retrieves predefined shopping-related phrases from the **`phrases.rda`** file stored within the package. 
 
 ```{r}
 #| message: false
 #| eval: false
 # Load predefined Turkish shopping-based phrases
-shopping_phrases <- load_dataset("phrases","csv")
+data("phrases", package = "shoppingwords") 
 ```
 
 ```{r}
 #| message: false
 #| echo: false
-shopping_phrases <- load_dataset("phrases","csv")
+shopping_phrases <- data("phrases", package = "shoppingwords")
 head(shopping_phrases)
 ```
 
@@ -232,55 +232,55 @@ Alternatively, users might pass the selected reviews to match_stopwords():
 ```{r}
 #| message: false
 # or using a few reviews from raw data 
-reviews <- load_dataset("review_raw_v1_1", "rds")
+data("reviews", package = "shoppingwords")
 reviews_sample <- reviews[1002:1005,]
 reviews_sample <-  match_stopwords(reviews_sample)
 kable(reviews_sample)
 ```
 
 
-## Sentiment Polarity Dataset
+## Sentiment Polarity Data
 
-The `shoppingwords` package also includes a **sentiment polarity dataset** for text mining and NLP tasks. This dataset contains user-generated reviews labeled as **positive (`p`)** or **negative (`n`)**, being different than reviews data and making it useful for training models in sentiment classification.
+The `shoppingwords` package also includes a **testdata.rda** data for text mining and NLP tasks. This data contains user-generated reviews labeled as **positive (`p`)** or **negative (`n`)**, being different than reviews data and making it useful for training models in sentiment classification.
 
-#### **Dataset Structure**
+#### **Data Structure**
 | Column   | Description |
 |----------|-------------|
 | `rating` | Numerical rating (1-5) from user reviews. |
 | `text`   | Review content, including product opinions. |
 | `emotion` | Sentiment label (`p`: positive, `n`: negative). |
 
-### **Loading the Testdata**
+### **Loading the testdata**
 
 
 ```{r}
 #| message: false
 #| echo: false
 # Load polarity dataset
-polarity_data <- load_dataset("testdata", "csv")
-head(polarity_data)
+data("testdata", package = "shoppingwords")
+head(testdata, 3)
 ```
 
-Once loaded, users can analyze the dataset:
+Once loaded, users can analyze the data:
 
 ```{r}
 #| message: false
 #| 
 # Count positive vs. negative reviews
-polarity_data |> 
+testdata |> 
   count(emotion, sort = TRUE)
 ```
 
-Summarizing the occurrences of rating and emotion in relation to negative and positive reviews is insightful. Notably,  204 reviews contain negative expressions even though they have been assigned a rating of 5, out of a total of 2244 reviews.
+Summarizing the occurrences of rating and emotion in relation to negative and positive reviews is insightful. Notably, 204 reviews contain negative expressions even though they have been assigned a rating of 5, out of a total of 2244 reviews.
 
 ```{r}
 # Occurences of rating and emotion
-polarity_data |> 
+testdata |> 
   count(rating, emotion, sort = TRUE) |> 
   arrange(desc(rating))
 ```
 
-The testdata can be used in various ways such as capturing the negative expressions or predciting sentence-level polarity using the **`review_raw_v1_1.rds`** dataset. 
+The testdata can be used in various ways such as capturing the negative expressions or predciting sentence-level polarity using the **`reviews.rda`** data. 
 
 
 # References
@@ -310,3 +310,5 @@ URL: https://CRAN.R-project.org/package=stopwords
 
 Csárdi, G. (2022). pak: A Fresh Approach to R Package Installation. R package version 0.3.1.
 URL: https://CRAN.R-project.org/package=pak
+
+

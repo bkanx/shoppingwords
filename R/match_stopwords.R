@@ -15,7 +15,7 @@
 #' @export
 match_stopwords <- function(df) {
   # Load stopwords
-  stopwords_tr <- load_dataset("stopwords_tr","csv")
+  data("stopwords_tr", package = "shoppingwords")  # Loads stopwords_tr.rda
   stopwords_tr <- stopwords_tr$stopwords_all  # Extract the column
   stopwords_tr <- as.character(stopwords_tr)  # Convert to a standard character vector
 

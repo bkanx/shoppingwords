@@ -1,7 +1,0 @@
-load_corrected_words    Load dataset This function loads corrected
-                        words from reviews and from a CSV (json) file
-                        within the package.
-load_phrases            Load predefined phrases
-load_stopwords          Load predefined stopwords
-normalize_text          Normalize stopwords This function loads
-                        stopwords from a CSV file within the package.

@@ -3,9 +3,11 @@ title: "shoppingwords: A Guide to Using the Package"
 output: rmarkdown::html_vignette
 date: "`r Sys.Date()`"
 vignette: >
+  %\VignetteEncoding{UTF-8}
   %\VignetteIndexEntry{shoppingwords: A Guide to Using the Package}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r}
@@ -46,6 +48,7 @@ library(shoppingwords)
 library(knitr)
 library(tibble)
 library(dplyr)
+library(utils)
 ```
 
 # Loading Datasets
@@ -82,20 +85,8 @@ The package stores **`reviews.rda`** data in an optimized RDA format for fast ac
 
 ```{r}
 #| message: false
-#| eval: false
 # Load reviews from RDA
-reviews <- data("reviews", package = "shoppingwords") 
-head(reviews, 3)
-str(reviews)
-```
-
-
-```{r}
-#| message: false
-#| echo: false
-# Load reviews from RDA
-data("reviews", package = "shoppingwords") 
-head(reviews, 3)
+reviews <- get("reviews")
 str(reviews)
 ```
 
@@ -128,20 +119,15 @@ The `data()` function allows users to load a predefined data of corrected words 
 #| message: false
 #| eval: false
 # Load corrected words from RDA
-corrected_words <- data("corrected_words", package = "shoppingwords") 
+get("corrected_words")
 ```
-
 
 ```{r}
 #| message: false
 #| echo: false
 # Load corrected words from RDA
-data("corrected_words", package = "shoppingwords")  
-corrected_words <- get("corrected_words")  # Explicitly retrieve it as a data frame if needed
-head(corrected_words)
+get("corrected_words")[c(28,44,58),]
 ```
-
-
 
 ### Loading Stopwords
 
@@ -151,27 +137,33 @@ The `data()` function also retrieves a predefined list of 92 stopwords from a RD
 #| message: false
 #| eval: false
 # Load Turkish shopping-based stopwords from RDA
-stopwords_tr <- data("stopwords_tr", package = "shoppingwords") 
-
+get("stopwords_tr")
 ```
 
 ```{r}
 #| message: false
 #| echo: false
 # Load Turkish shopping-based stopwords from RDA
-data("stopwords_tr", package = "shoppingwords") 
-stopwords_tr |> dplyr::slice(38:41)
+get("stopwords_tr")[37:39,]
 ```
 
+
 **`stopwords-iso`** is a standardized multilingual stopword collection, including Turkish but potentially with broader coverage.
+
+```{r}
+#| message: false
+#| eval: false
+# or load a few stopwords from stopwords-iso 
+stopwords::stopwords("tr", source = "stopwords-iso") |> head()
+```
 
 ```{r}
 #| message: false
 #| echo: false
 # or load a few stopwords from stopwords-iso 
 stopwords::stopwords("tr", source = "stopwords-iso") |> head()
-
 ```
+
 Using both datasets reduces the risk of missing critical stopwords that could skew sentiment or topic modeling results.
 
 
@@ -183,14 +175,13 @@ The `data()` function also retrieves predefined shopping-related phrases from th
 #| message: false
 #| eval: false
 # Load predefined Turkish shopping-based phrases
-data("phrases", package = "shoppingwords") 
+get("phrases") 
 ```
 
 ```{r}
 #| message: false
 #| echo: false
-shopping_phrases <- data("phrases", package = "shoppingwords")
-head(shopping_phrases)
+get("phrases")[5:9,]
 ```
 
 These phrases assist in text processing, linguistic analysis, and Natural Language Processing (NLP) applications, making it easier to analyze customer behavior and responses.

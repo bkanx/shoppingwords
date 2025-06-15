@@ -16,7 +16,7 @@
 match_stopwords <- function(df) {
   # Load stopwords
   get("stopwords_tr", envir = asNamespace("shoppingwords"))  # Loads stopwords_tr.rda
-  stopwords_tr <- stopwords_tr$stopwords_all  # Extracts the column
+  stopwords_tr <- shoppingwords::stopwords_tr$stopwords_all  # Extracts the column
   stopwords_tr <- as.character(stopwords_tr)  # Converts to a standard character vector
 
   stopwords_iso <- stopwords::stopwords("tr", source = "stopwords-iso")

@@ -128,38 +128,6 @@ cleaned_reviews |>
 
 
 
-### Loading Corrected Words
-
-The `get()` function allows users to load a predefined data of corrected words from within the package. The function restructures **corrected_words.rda`** data into a **long format** for easier text analysis. It is a restructured spelling variants or slang (e.g., "fiyattt" → "fiyat") for further text analysis. The **˜corrected_words.rda˜** data contains 10,137 pairs of commonly misspelled Turkish words and their corrected versions, particularly useful for normalizing shopping-related text.
-
-
-```{r}
-#| message: false
-#| eval: false
-# Load corrected words from RDA
-get("corrected_words")
-```
-
-
-```{r}
-#| message: false
-#| echo: false
-# Load corrected words from RDA
-get("corrected_words")[c(28,44,58),]
-```
-
-
-```{r}
-# English Translation
-#>   word       corrected 
-#>   <chr>      <chr>     
-#> 1 dıdn't write   didn't write  
-#> 2 probabl        probably  
-#> 3 w.ant.ed       wanted  
-
-```
-
-
 ### Loading Stopwords
 
 The `get()` function also retrieves a predefined list of 92 stopwords from a RDA file stored within the package. These stopwords are commonly found in Turkish shopping-related text and are useful for text preprocessing and analysis. **`stopwords_tr`** is a data specific to Turkish stopwords.
@@ -349,7 +317,7 @@ The testdata can be used in various ways such as capturing the negative expressi
 
 
 # References
-Kan-Kilinc, B., Cetinkaya-Rundel, M. & Rundel, C. (2023). shoppingwords: Text Processing Tools for Turkish E-Commerce Data. R package version 0.1.0.
+Kan-Kilinc, B., Cetinkaya-Rundel, M. & Rundel, C. (2025). shoppingwords: Text Processing Tools for Turkish E-Commerce Data. R package version 0.1.0.
 Available at: https://github.com/bkanx/shoppingwords
 
 

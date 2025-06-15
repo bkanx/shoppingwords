@@ -3,7 +3,7 @@
 \docType{data}
 \name{phrases}
 \alias{phrases}
-\title{A dataset of phrases}
+\title{Available Datasets}
 \format{
 A tibble with phrases.
 }
@@ -12,5 +12,8 @@ phrases
 }
 \description{
 Contains common negative-emotion phrases extracted from user reviews.
+}
+\details{
+A dataset of phrases
 }
 \keyword{datasets}

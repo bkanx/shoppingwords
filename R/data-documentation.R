@@ -1,10 +1,5 @@
 #' Available Datasets
-#' A dataset of corrected words
 #'
-#' @description A collection of words corrected from user-generated text.
-#' @format A tibble with corrected words.
-"corrected_words"
-
 #' A dataset of phrases
 #'
 #' @description Contains common negative-emotion phrases extracted from user reviews.

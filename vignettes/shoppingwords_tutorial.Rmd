@@ -271,7 +271,7 @@ testdata |>
   count(emotion, sort = TRUE)
 ```
 
-Summarizing the occurrences of rating and emotion in relation to negative and positive reviews is insightful. Notably, 204 reviews contain negative expressions even though they have been assigned a rating of 5, out of a total of 2244 reviews.
+Summarizing the occurrences of rating and emotion in relation to negative and positive reviews is insightful. Notably, 154 reviews contain negative expressions even though they have been assigned a rating of 5, out of a total of 1481 reviews.
 
 ```{r}
 # Occurences of rating and emotion

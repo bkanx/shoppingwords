@@ -70,11 +70,11 @@ The following datasets included in the package are given in Table 1:
 | `testdata.rda`               | RDA   | Sample test data including sentence-based polarity for further NLP tasks (In Turkish). |
 _Table 1: Overview of the datasets._
 
-The review_**`reviews.rda`** data is the core component of the shoppingwords package, designed for text analysis, sentiment scoring, or NLP tasks (e.g., customer feedback mining). The **`get()`** function provides a convenient way to load datasets by specifying their name.
+The `reviews` data frame is the core component of the shoppingwords package, designed for text analysis, sentiment scoring, or NLP tasks (e.g., customer feedback mining). The **`get()`** function provides a convenient way to load datasets by specifying their name.
 
 ### Loading Reviews Dataset
 
-The package stores **`reviews.rda`** data in an optimized RDA format for fast access. The **`get()`** function loads the main data of product reviews from an RDA file stored within the package. Table 2 provides a structured overview of the **`reviews.rda`** dataset, detailing user ratings, review content, and unique identifiers.
+The package stores `reviews` data frame in an optimized RDA format for fast access. The **`get()`** function loads the main data of product reviews from an RDA file stored within the package. Table 2 provides a structured overview of the `reviews` data frame, detailing user ratings, review content, and unique identifiers.
 
 #### **Data Structure**
 | Column   | Description |
@@ -96,7 +96,7 @@ str(reviews)
 ```
 
 
-The **`reviews.rda`** data enables the analysis of Turkish e-commerce reviews (e.g., rating scores, common complaints).
+The `reviews` data frame enables the analysis of Turkish e-commerce reviews (e.g., rating scores, common complaints).
 The earliest review is from April 16, 2022. The latest review is from June 11, 2025. The dataset spans over 3 years, capturing reviews from users, including 260,308 rows, in customer feedback. The examples have been translated from Turkish, as the dataset contains Turkish-language reviews.
 
 
@@ -280,7 +280,7 @@ testdata |>
   arrange(desc(rating))
 ```
 
-The testdata can be used in various ways such as capturing the negative expressions or predciting sentence-level polarity using the **`reviews.rda`** data. 
+The testdata can be used in various ways such as capturing the negative expressions or predciting sentence-level polarity using the `reviews`. 
 
 
 # References

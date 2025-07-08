@@ -18,6 +18,22 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r}
+#| eval: false
+# test real-world familiarity
+# split first (preserves randomness)
+split <- initial_split(reviews_test, prop = 0.8, strata = emotion)
+train_data <- training(split)
+validation_data <- testing(split)
+
+# remove overlaps from validation AFTER splitting
+overlaps <- intersect(validation_data$text, reviews$comment)
+diagnostic_set <- validation_data |>
+  filter(text %in% overlaps) # contains comments found in both reviews_test and reviews (the 170 common ones)
+validation_data_clean <- validation_data |>
+  filter(!text %in% overlaps) #validation_data minus 170 overlaps
+```
+
 # Overview
 
 This tutorial introduces the shoppingwords package, designed to simplify text processing and sentiment analysis for consumer reviews. The shoppingwords package facilitates datasets loading from RDA formats and provides stopword removal and phrase extraction. It also includes labeled polarity datasets for sentiment analysis.
@@ -64,10 +80,10 @@ The following datasets included in the package are given in Table 1:
 
 | Dataset Name                 | Format  | Description |
 |------------------------------|--------|-------------|
-| `reviews.rda`                | RDA    | Turkish raw review data for sentiment analysis and NLP tasks. |
-| `stopwords_tr.rda`           | RDA   | A list of Turkish stopwords including shopping-based terms for text preprocessing. |
-| `phrases.rda`                | RDA    | A data containing predefined Turkish phrases for analysis. |
-| `testdata.rda`               | RDA   | Sample test data including sentence-based polarity for further NLP tasks (In Turkish). |
+| `reviews`                | RDA    | Turkish raw review data for sentiment analysis and NLP tasks. |
+| `stopwords_tr`           | RDA   | A list of Turkish stopwords including shopping-based terms for text preprocessing. |
+| `phrases`                | RDA    | A data containing predefined Turkish phrases for analysis. |
+| `reviews_test`               | RDA   | Sample test data including sentence-based polarity for further NLP tasks (In Turkish). |
 _Table 1: Overview of the datasets._
 
 The `reviews` data frame is the core component of the shoppingwords package, designed for text analysis, sentiment scoring, or NLP tasks (e.g., customer feedback mining). The **`get()`** function provides a convenient way to load datasets by specifying their name.
@@ -225,7 +241,7 @@ cleaned_sample
 
 ## Sentiment Polarity Data
 
-The `shoppingwords` package also includes a **testdata.rda** data for text mining and NLP tasks. This data contains user-generated reviews labeled as **positive (`p`)** or **negative (`n`)**, being different than reviews data and making it useful for training models in sentiment classification (See Table 3).
+The `shoppingwords` package also includes a **reviews_test** data for text mining and NLP tasks. This data contains user-generated reviews labeled as **positive (`p`)** or **negative (`n`)**, being different than reviews data and making it useful for training models in sentiment classification (See Table 3).
 
 #### **Data Structure**
 | Column   | Description |
@@ -233,17 +249,17 @@ The `shoppingwords` package also includes a **testdata.rda** data for text minin
 | `rating` | Numerical rating (1-5) from user reviews. |
 | `text`   | Review content, including product opinions. |
 | `emotion` | Sentiment label (`p`: positive, `n`: negative). |
-_Table 3: Overview of the **`testdata.rda`** dataset._
+_Table 3: Overview of the **`reviews_test`** dataset._
 
-### **Loading the testdata**
+### **Loading the reviews_test**
 Below is a preview of the test dataset, which includes customer ratings, review text, and sentiment labels. Each row represents user feedback, providing insights into product perception and satisfaction.
 
 ```{r}
 #| message: false
 #| echo: false
 # Load polarity dataset
-data("testdata", package = "shoppingwords")
-head(testdata, 3)
+data("reviews_test", package = "shoppingwords")
+head(reviews_test, 3)
 ```
 ```{r}
 # English translation
@@ -267,7 +283,7 @@ Once loaded, users can analyze the data:
 #| message: false
 #| 
 # Count positive vs. negative reviews
-testdata |> 
+reviews_test |> 
   count(emotion, sort = TRUE)
 ```
 
@@ -275,12 +291,12 @@ Summarizing the occurrences of rating and emotion in relation to negative and po
 
 ```{r}
 # Occurences of rating and emotion
-testdata |> 
+reviews_test |> 
   count(rating, emotion, sort = TRUE) |> 
   arrange(desc(rating))
 ```
 
-The testdata can be used in various ways such as capturing the negative expressions or predciting sentence-level polarity using the `reviews`. 
+The reviews_test can be used in various ways such as capturing the negative expressions or predciting sentence-level polarity using the `reviews`. 
 
 
 # References

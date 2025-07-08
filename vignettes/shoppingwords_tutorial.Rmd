@@ -18,28 +18,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r}
-#| eval: false
-# test real-world familiarity
-# split first (preserves randomness)
-split <- initial_split(reviews_test, prop = 0.8, strata = emotion)
-train_data <- training(split)
-validation_data <- testing(split)
-
-# remove overlaps from validation AFTER splitting
-overlaps <- intersect(validation_data$text, reviews$comment)
-diagnostic_set <- validation_data |>
-  filter(text %in% overlaps) # contains comments found in both reviews_test and reviews (the 170 common ones)
-validation_data_clean <- validation_data |>
-  filter(!text %in% overlaps) #validation_data minus 170 overlaps
-```
 
 # Overview
 
 This tutorial introduces the shoppingwords package, designed to simplify text processing and sentiment analysis for consumer reviews. The shoppingwords package facilitates datasets loading from RDA formats and provides stopword removal and phrase extraction. It also includes labeled polarity datasets for sentiment analysis.
 
 The goal of this R package is to offer a structured dataset and analytical tools for exploring the relationship between user ratings and emotional sentiment in consumer reviews. It serves as a valuable resource for text mining, sentiment analysis, and behavioral research, helping users identify patterns where high ratings may be linked to negative emotion.
-
 
 # Installation
 
@@ -179,11 +163,10 @@ get("phrases")[7:8,]
 
 ```{r}
 # English Translation
-#> [1] "so it appears at the top"
-#> [2] "so it appears at the top five" 
+#> [1] "I gave 5 stars to pin my comment to the top"
+#> [2] "I gave 5 to pin to the top" 
 
 ```
-
 
 These phrases assist in text processing, linguistic analysis, and Natural Language Processing (NLP) applications, making it easier to analyze customer behavior and responses.
 
@@ -191,7 +174,6 @@ These phrases assist in text processing, linguistic analysis, and Natural Langua
 ### Cleaning Text
 
 The `match_stopwords()` is a function that processes user reviews by removing predefined stopwords while preserving the original rating scores. It takes a dataframe with "comment" and "rating" columns, cleans each review by filtering out stopwords from both custom stopword lists and stopwords-iso, and returns a dataframe with an additional "cleaned_text" column for further analysis. This function helps in text normalization for sentiment analysis and rating-based insights.
-
 
 To demonstrate a practical analytical use case for the preprocessed review data and how the package's function work together in a real analysis workflow is given in the examples. The example calculates if longer reviews correlate with higher/lower ratings. 
 
@@ -249,9 +231,11 @@ The `shoppingwords` package also includes a **reviews_test** data for text minin
 | `rating` | Numerical rating (1-5) from user reviews. |
 | `text`   | Review content, including product opinions. |
 | `emotion` | Sentiment label (`p`: positive, `n`: negative). |
+| `id` | Review id |
+
 _Table 3: Overview of the **`reviews_test`** dataset._
 
-### **Loading the reviews_test**
+### **Loading the Reviews Test**
 Below is a preview of the test dataset, which includes customer ratings, review text, and sentiment labels. Each row represents user feedback, providing insights into product perception and satisfaction.
 
 ```{r}
@@ -271,10 +255,10 @@ head(reviews_test, 3)
 #> 1 Definitely buy it! No need to spend so much on expensive brands; the fit looks incredibly good.  
 #> 2 If I could give 10 stars, I would. Super!  
 #> 3 The product deserves 5 stars. I bought both M and L sizes, and they fit the same. I really liked it.
-#>   emotion
-#> 1       p
-#> 2       p
-#> 3       p
+#>   emotion    id 
+#> 1       p     1
+#> 2       p     2
+#> 3       p     3
 ```
 
 Once loaded, users can analyze the data:
@@ -296,7 +280,7 @@ reviews_test |>
   arrange(desc(rating))
 ```
 
-The reviews_test can be used in various ways such as capturing the negative expressions or predciting sentence-level polarity using the `reviews`. 
+The reviews_test can be used in various ways such as capturing the negative expressions or predicting sentence-level polarity using the `reviews`. 
 
 
 # References

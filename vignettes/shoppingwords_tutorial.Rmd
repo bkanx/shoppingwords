@@ -18,28 +18,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-
 # Overview
 
-This tutorial introduces the shoppingwords package, designed to simplify text processing and sentiment analysis for consumer reviews. The shoppingwords package facilitates datasets loading from RDA formats and provides stopword removal and phrase extraction. It also includes labeled polarity datasets for sentiment analysis.
+This tutorial introduces the **shoppingwords** package, designed to simplify text processing and sentiment analysis for consumer reviews in Turkish.
+The shoppingwords package provides datasets including review test and stopwords commonly used in online reviews in Turkish. 
+It also includes labeled polarity datasets for sentiment analysis.
 
-The goal of this R package is to offer a structured dataset and analytical tools for exploring the relationship between user ratings and emotional sentiment in consumer reviews. It serves as a valuable resource for text mining, sentiment analysis, and behavioral research, helping users identify patterns where high ratings may be linked to negative emotion.
-
-# Installation
-
-Before using shoppingwords, install it from CRAN via:
-
-```{r}
-#| eval: false
-install.packages("shoppingwords")
-```
-
-or install the development version from GitHub via:
-
-```{r}
-#| eval: false
-pak::pak("bkanx/shoppingwords")
-```
+The goal of this R package is to offer a structured dataset and analytical tools for exploring the relationship between user ratings and emotional sentiment in consumer reviews. 
+It serves as a valuable resource for text mining, sentiment analysis, and behavioral research, helping users identify patterns where high ratings may be linked to negative emotion.
 
 # Packages
 
@@ -53,228 +39,193 @@ library(tibble)
 library(dplyr)
 ```
 
-# Loading Datasets
+# Package overview
 
 The **shoppingwords** package provides several datasets useful for text processing and analysis. This section introduces the datasets stored in the `data/` folder, explaining their contents and showing how to load them into R.
 
+The datasets included in the package are given in Table 1:
 
-## Available Datasets
+| Dataset Name        | Description |
+|---------------------|-------------|
+| `reviews`           | Turkish raw review data for sentiment analysis and Natural Language Processing (NLP) tasks. |
+| `stopwords_tr`      | A list of Turkish stopwords including shopping-based terms for text preprocessing. |
+| `phrases`           | A data containing predefined Turkish phrases for analysis. |
+| `reviews_test`      | Sample test data including sentence-based polarity for further NLP tasks (in Turkish). |
+_Table 1: Overview of the datasets in the package._
 
-The following datasets included in the package are given in Table 1:
+### `reviews`
 
-| Dataset Name                 | Format  | Description |
-|------------------------------|--------|-------------|
-| `reviews`                | RDA    | Turkish raw review data for sentiment analysis and NLP tasks. |
-| `stopwords_tr`           | RDA   | A list of Turkish stopwords including shopping-based terms for text preprocessing. |
-| `phrases`                | RDA    | A data containing predefined Turkish phrases for analysis. |
-| `reviews_test`               | RDA   | Sample test data including sentence-based polarity for further NLP tasks (In Turkish). |
-_Table 1: Overview of the datasets._
+The `reviews` data frame is the core component of the shoppingwords package, designed for text analysis, sentiment scoring, or NLP tasks (e.g., customer feedback mining).
+It contains a large number of reviews collected from a Turkish e-commerce site.
+See Table 2 for the data dictionary for this data frame.
 
-The `reviews` data frame is the core component of the shoppingwords package, designed for text analysis, sentiment scoring, or NLP tasks (e.g., customer feedback mining). The **`get()`** function provides a convenient way to load datasets by specifying their name.
-
-### Loading Reviews Dataset
-
-The package stores `reviews` data frame in an optimized RDA format for fast access. The **`get()`** function loads the main data of product reviews from an RDA file stored within the package. Table 2 provides a structured overview of the `reviews` data frame, detailing user ratings, review content, and unique identifiers.
-
-#### **Data Structure**
 | Column   | Description |
 |----------|-------------|
 | `rating` | Numerical rating (1-5) from user reviews. |
-| `comment`   | Review content, including product opinions. |
-| `id` | Unique ID|
-_Table 2: Overview of the `**reviews.rda`** dataset._
-
-
-```{r}
-#| message: false
-# Load reviews from RDA
-reviews <- get("reviews")
-str(reviews)
-
-# English Explanation
-#>  $ comment: chr  “Very good, true to size.” “Very good, you can buy one size smaller.” “Very good, true to size.” "Really.
-```
-
-
-The `reviews` data frame enables the analysis of Turkish e-commerce reviews (e.g., rating scores, common complaints).
-The earliest review is from April 16, 2022. The latest review is from June 11, 2025. The dataset spans over 3 years, capturing reviews from users, including 260,308 rows, in customer feedback. The examples have been translated from Turkish, as the dataset contains Turkish-language reviews.
-
-
-### Loading Stopwords
-
-The `get()` function also retrieves a predefined list of stopwords from a RDA file stored within the package. These stopwords are commonly found in Turkish shopping-related text and are useful for text preprocessing and analysis. **`stopwords_tr`** is a data specific to Turkish stopwords.
+| `comment`| Review content, including product opinions. |
+| `id`     | Review ID. |
+_Table 2: Data dictionary for the `reviews` data frame._
 
 ```{r}
 #| message: false
-#| eval: false
-# Load Turkish shopping-based stopwords from RDA
-get("stopwords_tr")
+glimpse(reviews)
 ```
 
-```{r}
-#| message: false
-#| echo: false
-# Load Turkish shopping-based stopwords from RDA
-get("stopwords_tr")[37:39,]
-```
-
-
-**`stopwords-iso`** is a standardized multilingual stopword collection, including Turkish but potentially with broader coverage.
-
-```{r}
-#| message: false
-#| eval: false
-# or load a few stopwords from stopwords-iso 
-stopwords::stopwords("tr", source = "stopwords-iso") |> head()
-```
-
-```{r}
-#| message: false
-#| echo: false
-# or load a few stopwords from stopwords-iso 
-stopwords::stopwords("tr", source = "stopwords-iso") |> head(5)
-```
-
-```{r}
-# English Translation
-#> [1] "I wonder"   "perhaps"    "clearly"    "frankly"    "thoroughly"
-```
-
-
-Using both datasets reduces the risk of missing critical stopwords that could skew sentiment or topic modeling results.
-
-
-### Loading Phrases
-
-The `get()` function also retrieves predefined shopping-related phrases from the **`phrases.rda`** file stored within the package. 
-
-```{r}
-#| message: false
-#| eval: false
-# Load predefined Turkish shopping-based phrases
-get("phrases") 
-```
-
-```{r}
-#| message: false
-#| echo: false
-get("phrases")[7:8,]
-```
-
-```{r}
-# English Translation
-#> [1] "I gave 5 stars to pin my comment to the top"
-#> [2] "I gave 5 to pin to the top" 
+English translations of the few comments visible in the output above are given below:
 
 ```
+**TO DO:** UPDATE ENGLISH TRANSLATION FOR COMMENTS THAT ARE VISIBLE
+```
 
-These phrases assist in text processing, linguistic analysis, and Natural Language Processing (NLP) applications, making it easier to analyze customer behavior and responses.
+The dataset spans over 3 years (with the earliest review from April 16, 2022 and most recent from June 11, 2025), capturing reviews from users, including 260,308 rows, in customer feedback. 
+The examples have been translated to English, as the dataset contains reviews in Turkish.
 
+### `stopwords_tr`
 
-### Cleaning Text
-
-The `match_stopwords()` is a function that processes user reviews by removing predefined stopwords while preserving the original rating scores. It takes a dataframe with "comment" and "rating" columns, cleans each review by filtering out stopwords from both custom stopword lists and stopwords-iso, and returns a dataframe with an additional "cleaned_text" column for further analysis. This function helps in text normalization for sentiment analysis and rating-based insights.
-
-To demonstrate a practical analytical use case for the preprocessed review data and how the package's function work together in a real analysis workflow is given in the examples. The example calculates if longer reviews correlate with higher/lower ratings. 
-
+`stopwords_tr` contains commonly found in Turkish shopping-related text and are useful for text preprocessing and analysis.
+For example, it contains some words pertaining to clothing sizes.
 
 ```{r}
-# Analyze sentiment vs. ratings  
-library(dplyr)  
+stopwords_tr |>
+  slice(c(37:39))
+```
+
+This dataset can supplement `stopwords-iso`, which is a standardized multilingual stopword collection, including Turkish but potentially with broader coverage.
+
+```{r}
+stopwords::stopwords("tr", source = "stopwords-iso") |> 
+  head(n = 5)
+```
+
+English translations of the few comments visible in the output above are given below:
+
+```
+"I wonder"   "perhaps"    "clearly"    "frankly"    "thoroughly"
+```
+
+Using both datasets reduces the risk of missing critical stopwords that could make sentiment analysis and topic modeling results less reliable.
+
+### `phrases`
+
+The `phrases` data frame contains phrases that can assist in text processing, linguistic analysis, and NLP applications, making it easier to analyze customer behavior and responses.
+
+```{r}
+phrases |>
+  slice(c(7:8))
+```
+
+English translations of the comments visible in the output above are given below:
+
+```
+[1] "I gave 5 stars to pin my comment to the top"
+[2] "I gave 5 to pin to the top" 
+```
+
+### Using `match_stopwords()` to remove stop words
+
+The `match_stopwords()` function processes user reviews by removing predefined stopwords while preserving the original rating scores. 
+It takes a dataframe with "comment" and "rating" columns, cleans each review by filtering out stopwords from both custom stopword lists and stopwords-iso, and returns a dataframe with an additional `cleaned_text` column for further analysis. 
+This function helps in text normalization for sentiment analysis and rating-based insights.
+
+To demonstrate a practical analytical use case for the preprocessed review data and how the package's function work together in a real analysis workflow is given in the examples. 
+The example calculates if longer reviews correlate with higher/lower ratings. 
+
+```{r}
 cleaned_reviews <- match_stopwords(reviews)  # Remove stopwords 
-cleaned_reviews |>    
+
+cleaned_reviews |>
   group_by(rating) |>   
   summarise(avg_text_length = mean(nchar(cleaned_text)))  
 ```
 
+**TO DO:** IS THIS WARNING EXPECTED? IS IT A BUG IN THE FUNCTION? IF NOT, YOU SHOULD SAY WHY THE WARNING IS PRINTED AND WHY IT'S OK TO IGNORE IT. IF IT'S A BUG, I SUGGEST FIXING THAT FIRST.
 
 ```{r}
-#| message: false
+#| warning: true
 reviews_sample <- tibble(
-    comment = c("Bu ürün gerçekten çok iyi ancak fiyatı sadece yüksek gibi", 
-                "Fiyat çok pahalı ama kaliteli iyi"), 
-    rating = c(4.5, 3.0)
+  comment = c(
+    "Bu ürün gerçekten çok iyi ancak fiyatı sadece yüksek gibi", 
+    "Fiyat çok pahalı ama kaliteli iyi"
+  ), 
+  rating = c(4.5, 3.0)
 )
-cleaned_sample <- match_stopwords(reviews_sample) # expects a data frame, not a name in quotes
-```
 
-The function can be applied to another sample dataset as well.
-
-```{r}
-#| echo: false
-#| message: false
-reviews_sample <- tibble(
-    rating = c(4.5, 3.0),
-    comment = c("Bu ürün xs ancak fiyatı yüksek gibi", 
-                "Fiyat çok pahalı değil kaliteli iyi")
-    )
 cleaned_sample <- match_stopwords(reviews_sample)
 cleaned_sample
 ```
 
+The function can be applied to another sample dataset as well.
+
+**TO DO:** SAME COMMENT AS ABOVE RE: WARNING.
+
 ```{r}
-# English translation
-# comment                                                    cleaned_text
-# "This product is xs but seems realy expensive"            "the product price high" 
-# "The price is not very expensive it's high-quality good"  "the price expensive high-quality"
+#| warning: true
+reviews_sample <- tibble(
+  rating = c(4.5, 3.0),
+  comment = c(
+    "Bu ürün xs ancak fiyatı yüksek gibi", 
+    "Fiyat çok pahalı değil kaliteli iyi"
+    )
+  )
+
+cleaned_sample <- match_stopwords(reviews_sample)
+cleaned_sample
 ```
 
+English translations of the text in `comment` and `cleaned_text` columns in the output above are given below:
 
+```
+comments:
+[1] "This product is xs but seems realy expensive"            
+[2] "The price is not very expensive it's high-quality good"  
 
-## Sentiment Polarity Data
+cleaned_text:
+[1] "the product price high" 
+[2] "the price expensive high-quality"
+```
 
-The `shoppingwords` package also includes a **reviews_test** data for text mining and NLP tasks. This data contains user-generated reviews labeled as **positive (`p`)** or **negative (`n`)**, being different than reviews data and making it useful for training models in sentiment classification (See Table 3).
+## `reviews_test`
 
-#### **Data Structure**
-| Column   | Description |
-|----------|-------------|
-| `rating` | Numerical rating (1-5) from user reviews. |
-| `text`   | Review content, including product opinions. |
+The `shoppingwords` package also includes a `reviews_test` data for text mining and NLP tasks. 
+This data contains user-generated reviews labeled as positive (`p`) or negative (`n`), being different than reviews data and making it useful for training models in sentiment classification.
+See Table 3 for the data dictionary for this data frame.
+
+| Column    | Description |
+|-----------|-------------|
+| `rating`  | Numerical rating (1-5) from user reviews. |
+| `text`    | Review content, including product opinions. |
 | `emotion` | Sentiment label (`p`: positive, `n`: negative). |
-| `id` | Review id |
+| `id`      | Review ID. |
+_Table 3: Data dictionary for the `reviews_test` data frame._
 
-_Table 3: Overview of the **`reviews_test`** dataset._
-
-### **Loading the Reviews Test**
-Below is a preview of the test dataset, which includes customer ratings, review text, and sentiment labels. Each row represents user feedback, providing insights into product perception and satisfaction.
-
-```{r}
-#| message: false
-#| echo: false
-# Load polarity dataset
-data("reviews_test", package = "shoppingwords")
-head(reviews_test, 3)
-```
-```{r}
-# English translation
-#>   rating
-#> 1      5
-#> 2      5
-#> 3      5
-#>  text
-#> 1 Definitely buy it! No need to spend so much on expensive brands; the fit looks incredibly good.  
-#> 2 If I could give 10 stars, I would. Super!  
-#> 3 The product deserves 5 stars. I bought both M and L sizes, and they fit the same. I really liked it.
-#>   emotion    id 
-#> 1       p     1
-#> 2       p     2
-#> 3       p     3
-```
-
-Once loaded, users can analyze the data:
+Below is a preview of the test dataset, which includes customer ratings, review text, and sentiment labels. 
+Each row represents user feedback, providing insights into product perception and satisfaction.
 
 ```{r}
 #| message: false
-#| 
-# Count positive vs. negative reviews
+reviews_test |>
+  slice_head(n = 3)
+```
+
+English translations of the comments in the `text` column in the output above are given below:
+
+```
+[1] Definitely buy it! No need to spend so much on expensive brands; the fit looks incredibly good. 
+[2] If I could give 10 stars, I would. Super!  
+[3] The product deserves 5 stars. I bought both M and L sizes, and they fit the same. I really liked it.
+```
+
+Let's take a look at the emotion distribution in this data frame:
+
+```{r}
 reviews_test |> 
   count(emotion, sort = TRUE)
 ```
 
-Summarizing the occurrences of rating and emotion in relation to negative and positive reviews is insightful. Notably, 154 reviews contain negative expressions even though they have been assigned a rating of 5, out of a total of 1481 reviews.
+Summarizing the occurrences of rating and emotion in relation to negative and positive reviews is insightful. 
+Notably, 154 reviews contain negative expressions even though they have been assigned a rating of 5, out of a total of 1481 reviews.
 
 ```{r}
-# Occurences of rating and emotion
 reviews_test |> 
   count(rating, emotion, sort = TRUE) |> 
   arrange(desc(rating))
@@ -282,29 +233,26 @@ reviews_test |>
 
 The reviews_test can be used in various ways such as capturing the negative expressions or predicting sentence-level polarity using the `reviews`. 
 
-
 # References
-Kan-Kilinc, B., Cetinkaya-Rundel, M. & Rundel, C. (2025). shoppingwords: Text Processing Tools for Turkish E-Commerce Data. R package version 0.1.0.
-Available at: https://github.com/bkanx/shoppingwords
 
+Kan-Kilinc, B., Cetinkaya-Rundel, M. & Rundel, C. (2025). shoppingwords: Text Processing Tools for Turkish E-Commerce Data. R package version 0.1.0.
+URL: <https://github.com/bkanx/shoppingwords>
+
+**TO DO:** MAKE SURE YOU'RE CITING LATEST VERSIONS OF PACKAGES, THERE ARE NEWER RELEASES ON CRAN.
 
 Wickham, H., François, R., Henry, L., Müller, K., & Vaughan, D. (2023). dplyr: A Grammar of Data Manipulation. R package version 1.1.2.
-URL: https://CRAN.R-project.org/package=dplyr
-
+URL: <https://CRAN.R-project.org/package=dplyr>
 
 Xie, Y. (2023). knitr: A General-Purpose Package for Dynamic Report Generation in R. R package version 1.43.
-URL: https://yihui.org/knitr/
-
+URL: <https://yihui.org/knitr/>
 
 Müller, K., & Wickham, H. (2023). tibble: Simple Data Frames. R package version 3.2.1.
-URL: https://CRAN.R-project.org/package=tibble
-
+URL: <https://CRAN.R-project.org/package=tibble>
 
 Benoit, K., Muhr, D., & Watanabe, K. (2021). stopwords: Multilingual Stopword Lists. R package version 2.3.
-URL: https://CRAN.R-project.org/package=stopwords
-
+URL: <https://CRAN.R-project.org/package=stopwords>
 
 Csárdi, G. (2022). pak: A Fresh Approach to R Package Installation. R package version 0.3.1.
-URL: https://CRAN.R-project.org/package=pak
+URL: <https://CRAN.R-project.org/package=pak>
 
-
+**TO DO:** WHERE IS THE LAST PACKAGE USED? IF IT'S NOT USED, YOU CAN REMOVE FROM REFERENCES.

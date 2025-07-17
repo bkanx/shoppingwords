@@ -2,3 +2,6 @@
 ../TurkishSentiNet/
 ../bilkent-turkish-writings-dataset/
 inst/doc
+docs
+
+/.quarto/

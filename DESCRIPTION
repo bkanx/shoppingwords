@@ -1,7 +1,6 @@
 Package: shoppingwords
-Data: data/stopwords_tr.csv, data/phrases.csv
-Description: It includes the collection of words from user reviews that were captured from an online shopping platform.
-Title: It includes the collection of words from user reviews 
+Title: Text Processing Tools for Turkish E-Commerce Data
+Description: Provides several datasets useful for processing and analysis of text in Turkish from an online shopping platform.
 Version: 0.1.0
 Author: Betul Kan-Kilinc, Mine Çetinkaya-Rundel, Colin Rundel
 Maintainer: Betul Kan-Kilinc <kanbetul@yahoo.com>

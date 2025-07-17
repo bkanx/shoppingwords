@@ -1,6 +1,6 @@
 .Rproj.user
-../TurkishSentiNet/
-../bilkent-turkish-writings-dataset/
+.Rhistory
+.RData
 inst/doc
 docs
 

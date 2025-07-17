@@ -15,9 +15,9 @@
 #' @export
 match_stopwords <- function(df) {
   # Load stopwords
-  get("stopwords_tr", envir = asNamespace("shoppingwords"))  # Loads stopwords_tr.rda
-  stopwords_tr <- shoppingwords::stopwords_tr$stopwords_all  # Extracts the column
-  stopwords_tr <- as.character(stopwords_tr)  # Converts to a standard character vector
+  get("stopwords_tr", envir = asNamespace("shoppingwords")) # Loads stopwords_tr.rda
+  stopwords_tr <- shoppingwords::stopwords_tr$stopwords_all # Extracts the column
+  stopwords_tr <- as.character(stopwords_tr) # Converts to a standard character vector
 
   stopwords_iso <- stopwords::stopwords("tr", source = "stopwords-iso")
 
@@ -28,7 +28,9 @@ match_stopwords <- function(df) {
 
   # Function to clean individual text
   clean_text <- function(text) {
-    if (is.na(text) || text == "") return("")
+    if (is.na(text) || text == "") {
+      return("")
+    }
     text <- tolower(text)
     text_clean <- stringi::stri_trans_general(text, "Latin-ASCII")
     words <- unlist(strsplit(text_clean, "\\s+"))
@@ -36,7 +38,7 @@ match_stopwords <- function(df) {
     return(paste(cleaned_words, collapse = " "))
   }
 
-  df$cleaned_text <- sapply(df$comment, clean_text)  # Applies cleaning function to all rows
+  df$cleaned_text <- sapply(df$comment, clean_text) # Applies cleaning function to all rows
 
   return(df)
 }

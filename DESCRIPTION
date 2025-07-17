@@ -14,10 +14,11 @@ Authors@R:
             role = c("aut", "cre")
         ),
     person(
-            given = "Mine", "\u00C7etinkaya-Rundel", 
+            given = "Mine", 
+            family = "\u00C7etinkaya-Rundel", 
             email = "cetinkaya.mine@gmail.com", 
-            comment = c(ORCID = "0000-0001-6452-2420")),
-            role = c("ctb"),
+            comment = c(ORCID = "0000-0001-6452-2420"),
+            role = c("ctb")
         ),
     person(
             given = "Colin",

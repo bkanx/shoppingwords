@@ -1,0 +1,39 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# shoppingwords
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of shoppingwords is to provide several datasets useful for processing and analysis of text in Turkish from an online shopping platform.
+
+## Installation
+
+You can install the development version of shoppingwords from [GitHub](https://github.com/bkanx/shoppingwords) with:
+
+```{r}
+#| eval: false
+pak::pak("bkanx/shoppingwords")
+```
+
+Or install it from CRAN via:
+
+```{r}
+#| eval: false
+install.packages("shoppingwords")
+```
+
+See the vignette for more information on how you can use this package.

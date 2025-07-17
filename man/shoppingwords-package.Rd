@@ -13,7 +13,7 @@ It includes the collection of words from user reviews that were captured from an
 
 Other contributors:
 \itemize{
-  \item Mine Çetinkaya-Rundel \email{cetinkaya.mine@gmail.com} [contributor]
+  \item Mine Çetinkaya-Rundel \email{cetinkaya.mine@gmail.com} (\href{https://orcid.org/0000-0001-6452-2420}{ORCID}) [contributor]
   \item Colin Rundel \email{cr173@duke.edu} [contributor]
 }
 

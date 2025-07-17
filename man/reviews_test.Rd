@@ -5,7 +5,7 @@
 \alias{reviews_test}
 \title{A test dataset}
 \format{
-A tbl_df with with 1,481 rows and 3 variables:
+A tbl_df with with 1,481 rows and 4 variables:
 \describe{
 \item{rating}{Rating score, out of 5.}
 \item{text}{Comment text, in Turkish.}

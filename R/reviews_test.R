@@ -7,7 +7,7 @@
 #' The `id` column shows that these are not the same observations, just similarly worded
 #' comments from different reviews.
 #'
-#' @format A tbl_df with with 1,481 rows and 3 variables:
+#' @format A tbl_df with with 1,481 rows and 4 variables:
 #' \describe{
 #'   \item{rating}{Rating score, out of 5.}
 #'   \item{text}{Comment text, in Turkish.}

@@ -6,24 +6,26 @@ Version: 0.1.0
 Author: Betul Kan-Kilinc, Mine Çetinkaya-Rundel, Colin Rundel
 Maintainer: Betul Kan-Kilinc <kanbetul@yahoo.com>
 Authors@R: 
-    c(person(
+    c(
+        person(
             given = "Betul",
             family = "Kan-Kilinc",
             email = c("bk234@duke.edu"),
             role = c("aut", "cre")
         ),
     person(
-            given = "Mine",
-            family = "Çetinkaya-Rundel",
-            email = "cetinkaya.mine@gmail.com",
+            given = "Mine", "\u00C7etinkaya-Rundel", 
+            email = "cetinkaya.mine@gmail.com", 
+            comment = c(ORCID = "0000-0001-6452-2420")),
             role = c("ctb"),
-            ),
+        ),
     person(
             given = "Colin",
             family = "Rundel",
             email = "cr173@duke.edu",
             role = c("ctb"),
-            ))
+        )
+    )
 Imports: stringi, stopwords, stringdist
 Depends: R (>= 4.0.0)
 License: MIT + file LICENSE
@@ -38,4 +40,3 @@ Suggests:
     dplyr,
 VignetteBuilder: knitr
 LazyDataCompression: xz
-

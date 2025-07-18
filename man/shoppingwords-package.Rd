@@ -4,9 +4,9 @@
 \name{shoppingwords-package}
 \alias{shoppingwords}
 \alias{shoppingwords-package}
-\title{shoppingwords: It includes the collection of words from user reviews}
+\title{shoppingwords: Text Processing Tools for Turkish E-Commerce Data}
 \description{
-It includes the collection of words from user reviews that were captured from an online shopping platform.
+Provides several datasets useful for processing and analysis of text in Turkish from an online shopping platform.
 }
 \author{
 \strong{Maintainer}: Betul Kan-Kilinc \email{bk234@duke.edu}

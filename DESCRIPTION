@@ -10,6 +10,7 @@ Authors@R:
             given = "Betul",
             family = "Kan-Kilinc",
             email = c("bk234@duke.edu"),
+            comment = c(ORCID = "0000-0002-3746-2327"),
             role = c("aut", "cre")
         ),
     person(

@@ -14,7 +14,7 @@ Provides several datasets useful for processing and analysis of text in Turkish 
 Other contributors:
 \itemize{
   \item Mine Çetinkaya-Rundel \email{cetinkaya.mine@gmail.com} (\href{https://orcid.org/0000-0001-6452-2420}{ORCID}) [contributor]
-  \item Colin Rundel \email{cr173@duke.edu} [contributor]
+  \item Colin Rundel \email{cr173@duke.edu} (ORCID = 0000-0002-6058-8251) [contributor]
 }
 
 }

@@ -4,7 +4,6 @@
 # shoppingwords
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 The goal of shoppingwords is to provide several datasets useful for

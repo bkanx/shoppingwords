@@ -27,7 +27,7 @@ Authors@R:
             role = c("ctb"),
         )
     )
-Imports: stringi, stopwords, stringdist, dplyr, ggplot2
+Imports: stringi, stopwords, stringdist
 Depends: R (>= 4.0.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -39,5 +39,6 @@ Suggests:
     rmarkdown,
     tibble,
     dplyr,
+    ggplot2
 VignetteBuilder: knitr
 LazyDataCompression: xz

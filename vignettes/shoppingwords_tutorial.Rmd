@@ -1,44 +1,17 @@
 ---
-
 title: "shoppingwords: A Guide to Using the Package"
-
 output: rmarkdown::html_vignette
-
 date: "`r Sys.Date()`"
-
 vignette: >
-
   %\VignetteEncoding{UTF-8}
-
   %\VignetteIndexEntry{shoppingwords: A Guide to Using the Package}
-
   %\VignetteEngine{knitr::rmarkdown}
-
 editor_options: 
-
   chunk_output_type: console
-
 ---
 
-```{r}
-
-#| include = FALSE
-
-knitr::opts_chunk$set(
-
-  collapse = TRUE,
-
-  comment = "#>"
-
-)
-
-```
 
 # Overview
-
-<!-- This tutorial introduces the shoppingwords package, designed to simplify text processing and sentiment analysis for consumer reviews. The shoppingwords package facilitates datasets loading from RDA formats and provides stopword removal and phrase extraction. It also includes labeled polarity datasets for sentiment analysis. -->
-
-<!-- The goal of this R package is to offer a structured dataset and analytical tools for exploring the relationship between user ratings and emotional sentiment in consumer reviews. It serves as a valuable resource for text mining, sentiment analysis, and behavioral research, helping users identify patterns where high ratings may be linked to negative emotion. -->
 
 This tutorial introduces the **shoppingwords** package, designed to simplify text processing and sentiment analysis for consumer reviews in Turkish.
 
@@ -55,13 +28,9 @@ It serves as a valuable resource for text mining, sentiment analysis, and behavi
 For this vignette we will use the shoppingwords, dplyr and ggplot2 packages:
 
 ```{r}
-
 #| message: false
-
 library(dplyr)
-
 library(ggplot2)
-
 ```
 
 # Package overview
@@ -70,18 +39,12 @@ The **shoppingwords** package provides several datasets useful for text processi
 
 The datasets included in the package are given in Table 1:
 
-| Dataset Name          | Description |
-
-|-----------------------|-------------|
-
+|Dataset Name        | Description |
+|---------------------|-------------|
 | `reviews`           | Turkish raw review data for sentiment analysis and Natural Language Processing (NLP) tasks. |
-
 | `stopwords_tr`      | A list of Turkish stopwords including shopping-based terms for text preprocessing. |
-
 | `phrases`           | A data containing predefined Turkish phrases for analysis. |
-
 | `reviews_test`      | Sample test data including sentence-based polarity for further NLP tasks (in Turkish). |
-
 _Table 1: Overview of the datasets in the package._
 
 ### `reviews`
@@ -93,37 +56,23 @@ It contains a large number of reviews collected from a Turkish e-commerce site.
 See Table 2 for the data dictionary for this data frame.
 
 | Column   | Description |
-
 |----------|-------------|
-
 | `rating` | Numerical rating (1-5) from user reviews. |
-
-| `comment`   | Review content, including product opinions. |
-
-| `id` | Review ID|
-
+| `comment`| Review content, including product opinions. |
+| `id`     | Review ID. |
 _Table 2: Data dictionary for the `reviews` data frame._
 
 ```{r}
-
-#| message: false
-
 library(shoppingwords)
-
 glimpse(reviews)
-
 ```
 
 English translations of the few comments visible in the output above are given below:
 
 ```{r}
-
 #$ rating <dbl> 5, 5, 5, 5, 5, 1, 5, 5, 5, 5, 2, 3, 1, 1, 3, 3, 1, 1, 1, 1, 1, 3, 1, 4,...
-
 #$ comment <chr> "I gave 5 stars so that the comment would be visible I ordered a 5-pack and ...
-
 #$ id <dbl> 3573, 3975, 4910, 4950, 5908, 6144, 6192, 6335, 6370, 6371,...```
-
 ```
 
 The dataset spans over 3 years (with the earliest review from April 16, 2022 and most recent from June 11, 2025), capturing reviews from users, including 260,308 rows, in customer feedback. 
@@ -137,29 +86,21 @@ The examples have been translated to English, as the dataset contains reviews in
 For example, it contains some words pertaining to clothing sizes.
 
 ```{r}
-
 stopwords_tr |> 
-
   slice(c(37:39))
-
 ```
 
 This dataset can supplement `stopwords-iso`, which is a standardized multilingual stopword collection, including Turkish but potentially with broader coverage.
 
 ```{r}
-
 stopwords::stopwords("tr", source = "stopwords-iso") |> 
-
   head(n = 5)
-
 ```
 
 English translations of the few comments visible in the output above are given below:
 
 ```
-
 "I wonder"   "perhaps"    "clearly"    "frankly"    "thoroughly"
-
 ```
 
 Using both datasets reduces the risk of missing critical stopwords that could skew sentiment or topic modeling results.
@@ -169,21 +110,15 @@ Using both datasets reduces the risk of missing critical stopwords that could sk
 The `phrases` data frame contains phrases that can assist in text processing, linguistic analysis, and NLP applications, making it easier to analyze customer behavior and responses.
 
 ```{r}
-
 phrases |>
-
   slice(c(7:8))
-
 ```
 
 English translations of the comments visible in the output above are given below:
 
 ```
-
 "I gave 5 stars to pin my comment to the top"
-
 "I gave 5 to pin to the top" 
-
 ```
 
 ### Using `match_stopwords()` to remove stop words
@@ -199,55 +134,36 @@ To demonstrate a practical analytical use case for the preprocessed review data 
 The example calculates if longer reviews correlate with higher/lower ratings. 
 
 ```{r}
-
 cleaned_reviews <- match_stopwords(reviews)  # Remove stopwords 
-
 cleaned_reviews |>    
-
   group_by(rating) |>   
-
   summarise(avg_text_length =
-
     mean(nchar(cleaned_text)))  
-
 ```
 
 The function can be applied to another sample dataset as well.
 
 ```{r}
-
 #| warning: true
-
 reviews_sample <- tibble(
-
     comment = c("Bu ürün xs ancak fiyatı yüksek gibi", 
-
                 "Fiyat çok pahalı ama kaliteli iyi"), 
-
     rating = c(4.5, 3.0)
-
 )
 
 cleaned_sample <- match_stopwords(reviews_sample) 
-
 ```
 
 English translations of the text in `comment` and `cleaned_text` columns in the output above are given below:
 
 ```
-
 # comment                                                    
-
 # [1] "This product is xs but seems realy expensive"            
-
 # [2] "The price is not very expensive it's high-quality good" 
 
 cleaned_text
-
 [1] "the product price high" 
-
 [2] "the price expensive high-quality"
-
 ```
 
 ### `reviews_test`
@@ -259,17 +175,11 @@ This data contains user-generated reviews labeled as **positive (`p`)** or **neg
 See Table 3 for the data dictionary for this data frame.
 
 | Column    | Description |
-
 |-----------|-------------|
-
 | `rating`  | Numerical rating (1-5) from user reviews. |
-
 | `text`    | Review content, including product opinions. |
-
 | `emotion` | Sentiment label (`p`: positive, `n`: negative). |
-
 | `id`      | Review ID. |
-
 _Table 3: Data dictionary for the `reviews_test` data frame._
 
 Below is a preview of the test dataset, which includes customer ratings, review text, and sentiment labels. 
@@ -277,35 +187,23 @@ Below is a preview of the test dataset, which includes customer ratings, review 
 Each row represents user feedback, providing insights into product perception and satisfaction.
 
 ```{r}
-
-#| message: false
-
 reviews_test |>
-
   slice_head(n = 3)
-
 ```
 
 English translations of the comments in the `text` column in the output above are given below:
 
 ```
-
 [1] Definitely buy it! No need to spend so much on expensive brands; the fit looks incredibly good. 
-
 [2] If I could give 10 stars, I would. Super!  
-
 [3] The product deserves 5 stars. I bought both M and L sizes, and they fit the same. I really liked it.
-
 ```
 
 Let's take a look at the emotion distribution in this data frame:
 
 ```{r}
-
 reviews_test |> 
-
   count(emotion, sort = TRUE)
-
 ```
 
 Summarizing the occurrences of rating and emotion in relation to negative and positive reviews is insightful.
@@ -313,13 +211,9 @@ Summarizing the occurrences of rating and emotion in relation to negative and po
 Notably, 154 reviews contain negative expressions even though they have been assigned a rating of 5, out of a total of 1481 reviews.
 
 ```{r}
-
 reviews_test |> 
-
   count(rating, emotion, sort = TRUE) |> 
-
   arrange(desc(rating))
-
 ```
 
 The reviews_test can be used in various ways such as capturing the negative expressions or predicting sentence-level polarity using the `reviews`. 
@@ -327,33 +221,19 @@ The reviews_test can be used in various ways such as capturing the negative expr
 This discrepancy between user ratings and comments is visualized in the Figure below , which shows the distribution of positive and negative reviews across all rating levels.
 
 ```{r}
-
 library(ggplot2)
-
 library(dplyr)
-
 reviews_test |> 
-
     count(rating, emotion) |> 
-
     ggplot(aes(x = factor(rating), y = n, fill = emotion)) +
-
     geom_col(position = "dodge") +
-
     scale_fill_manual(values = c("p" = "lightblue", "n" = "darkred"),
-
                       labels = c("p" = "Positive", "n" = "Negative")) +
-
     labs(x = "User Ratings",
-
          y = "Number of Reviews",
-
          fill = "Polarity") +
-
     theme_minimal() +
-
     theme(legend.position = "right")
-
 ```
 
 # References

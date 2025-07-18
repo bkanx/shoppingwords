@@ -24,6 +24,7 @@ Authors@R:
             given = "Colin",
             family = "Rundel",
             email = "cr173@duke.edu",
+            comment = c("ORCID = 0000-0002-6058-8251"), 
             role = c("ctb"),
         )
     )

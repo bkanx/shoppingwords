@@ -27,7 +27,7 @@ Authors@R:
             role = c("ctb"),
         )
     )
-Imports: stringi, stopwords, stringdist
+Imports: stringi, stopwords, stringdist, ggplot2
 Depends: R (>= 4.0.0)
 License: MIT + file LICENSE
 Encoding: UTF-8

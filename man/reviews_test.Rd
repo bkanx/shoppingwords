@@ -24,4 +24,7 @@ with comments in the \code{reviews} dataset. This is because some users made the
 The \code{id} column shows that these are not the same observations, just similarly worded
 comments from different reviews.
 }
+\examples{
+reviews_test
+}
 \keyword{datasets}

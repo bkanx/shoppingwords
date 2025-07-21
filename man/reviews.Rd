@@ -18,4 +18,7 @@ reviews
 \description{
 User reviews collected from an e-commerce site.
 }
+\examples{
+reviews
+}
 \keyword{datasets}

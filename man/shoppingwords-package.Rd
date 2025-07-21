@@ -9,7 +9,7 @@
 Provides several datasets useful for processing and analysis of text in Turkish from an online shopping platform.
 }
 \author{
-\strong{Maintainer}: Betul Kan-Kilinc \email{bk234@duke.edu} (\href{https://orcid.org/0000-0002-3746-2327}{ORCID})
+\strong{Maintainer}: Betul Kan-Kilinc \email{bkan@eskisehir.edu.tr, bk234@duke.edu} (\href{https://orcid.org/0000-0002-3746-2327}{ORCID})
 
 Other contributors:
 \itemize{

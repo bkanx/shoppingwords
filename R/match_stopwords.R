@@ -7,8 +7,8 @@
 #' The function converts text to a standardized format by removing accents and special characters,
 #' transforming it into basic Latin characters, and making all letters lowercase. It then
 #' tokenizes the text, filters out stopwords, and returns the cleaned version.
-#' @param df Dataframe containing user reviews, with required columns `"comment"` (text) and `"rating"` (numerical score).
-#' @return A modified dataframe with an additional `"cleaned_text"` column containing stopword-free text.
+#' @param df Dataframe containing user reviews, with required columns `comment` (text) and `rating` (numerical score).
+#' @return A modified dataframe with an additional `cleaned_text` column containing stopword-free text.
 #' @import stringi
 #' @importFrom stringdist amatch
 #' @import stopwords
@@ -16,8 +16,7 @@
 match_stopwords <- function(df) {
   # Load stopwords
   get("stopwords_tr", envir = asNamespace("shoppingwords")) # Loads stopwords_tr.rda
-  stopwords_tr <- shoppingwords::stopwords_tr$stopwords_all # Extracts the column
-  stopwords_tr <- as.character(stopwords_tr) # Converts to a standard character vector
+  stopwords_tr <- shoppingwords::stopwords_tr$word # Extracts the column
 
   stopwords_iso <- stopwords::stopwords("tr", source = "stopwords-iso")
 

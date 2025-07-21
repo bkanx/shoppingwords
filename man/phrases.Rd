@@ -16,4 +16,7 @@ phrases
 \description{
 Contains common negative-emotion phrases extracted from user reviews.
 }
+\examples{
+phrases
+}
 \keyword{datasets}

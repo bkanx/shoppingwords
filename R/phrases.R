@@ -6,4 +6,6 @@
 #' \describe{
 #'   \item{word}{ngrams.}
 #' }
+#' @examples
+#' phrases
 "phrases"

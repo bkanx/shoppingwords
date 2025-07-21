@@ -6,4 +6,6 @@
 #' \describe{
 #'   \item{word}{Stopword, in Turkish.}
 #' }
+#' @examples
+#' stopwords_tr
 "stopwords_tr"

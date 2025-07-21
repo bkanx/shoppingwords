@@ -8,4 +8,6 @@
 #'   \item{comment}{Comment text, in Turkish.}
 #'   \item{id}{Rating ID.}
 #' }
+#' @examples
+#' reviews
 "reviews"

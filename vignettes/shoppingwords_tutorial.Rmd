@@ -1,10 +1,10 @@
 ---
-title: "shoppingwords: A Guide to Using the Package"
+title: "A Guide to Using the Package"
 output: rmarkdown::html_vignette
 date: "`r Sys.Date()`"
 vignette: >
   %\VignetteEncoding{UTF-8}
-  %\VignetteIndexEntry{shoppingwords: A Guide to Using the Package}
+  %\VignetteIndexEntry{A Guide to Using the Package}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   chunk_output_type: console
@@ -31,6 +31,12 @@ For this vignette we will use the shoppingwords, dplyr and ggplot2 packages:
 #| message: false
 library(dplyr)
 library(ggplot2)
+```
+
+We'll also load the **shoppingwords** package.
+
+```{r}
+library(shoppingwords)
 ```
 
 # Package overview
@@ -63,16 +69,15 @@ See Table 2 for the data dictionary for this data frame.
 _Table 2: Data dictionary for the `reviews` data frame._
 
 ```{r}
-library(shoppingwords)
 glimpse(reviews)
 ```
 
 English translations of the few comments visible in the output above are given below:
 
 ```{r}
-#$ rating <dbl> 5, 5, 5, 5, 5, 1, 5, 5, 5, 5, 2, 3, 1, 1, 3, 3, 1, 1, 1, 1, 1, 3, 1, 4,...
-#$ comment <chr> "I gave 5 stars so that the comment would be visible I ordered a 5-pack and ...
-#$ id <dbl> 3573, 3975, 4910, 4950, 5908, 6144, 6192, 6335, 6370, 6371,...```
+# $ rating <dbl> 5, 5, 5, 5, 5, 1, 5, 5, 5, 5, 2, 3, 1, 1, 3, 3, 1, 1, 1, 1, 1, 3, 1, 4,...
+# $ comment <chr> "I gave 5 stars so that the comment would be visible I ordered a 5-pack and ...
+# $ id <dbl> 3573, 3975, 4910, 4950, 5908, 6144, 6192, 6335, 6370, 6371,...```
 ```
 
 The dataset spans over 3 years (with the earliest review from April 16, 2022 and most recent from June 11, 2025), capturing reviews from users, including 260,308 rows, in customer feedback. 
@@ -100,7 +105,7 @@ stopwords::stopwords("tr", source = "stopwords-iso") |>
 English translations of the few comments visible in the output above are given below:
 
 ```
-"I wonder"   "perhaps"    "clearly"    "frankly"    "thoroughly"
+# "I wonder"   "perhaps"    "clearly"    "frankly"    "thoroughly"
 ```
 
 Using both datasets reduces the risk of missing critical stopwords that could skew sentiment or topic modeling results.
@@ -117,8 +122,8 @@ phrases |>
 English translations of the comments visible in the output above are given below:
 
 ```
-"I gave 5 stars to pin my comment to the top"
-"I gave 5 to pin to the top" 
+# "I gave 5 stars to pin my comment to the top"
+# "I gave 5 to pin to the top" 
 ```
 
 ### Using `match_stopwords()` to remove stop words
@@ -137,8 +142,7 @@ The example calculates if longer reviews correlate with higher/lower ratings.
 cleaned_reviews <- match_stopwords(reviews)  # Remove stopwords 
 cleaned_reviews |>    
   group_by(rating) |>   
-  summarise(avg_text_length =
-    mean(nchar(cleaned_text)))  
+  summarise(avg_text_length = mean(nchar(cleaned_text)))  
 ```
 
 The function can be applied to another sample dataset as well.
@@ -146,8 +150,10 @@ The function can be applied to another sample dataset as well.
 ```{r}
 #| warning: true
 reviews_sample <- tibble(
-    comment = c("Bu ürün xs ancak fiyatı yüksek gibi", 
-                "Fiyat çok pahalı ama kaliteli iyi"), 
+    comment = c(
+      "Bu ürün xs ancak fiyatı yüksek gibi", 
+      "Fiyat çok pahalı ama kaliteli iyi"
+    ), 
     rating = c(4.5, 3.0)
 )
 
@@ -161,9 +167,9 @@ English translations of the text in `comment` and `cleaned_text` columns in the 
 # [1] "This product is xs but seems realy expensive"            
 # [2] "The price is not very expensive it's high-quality good" 
 
-cleaned_text
-[1] "the product price high" 
-[2] "the price expensive high-quality"
+# cleaned_text
+# [1] "the product price high" 
+# [2] "the price expensive high-quality"
 ```
 
 ### `reviews_test`
@@ -194,9 +200,9 @@ reviews_test |>
 English translations of the comments in the `text` column in the output above are given below:
 
 ```
-[1] Definitely buy it! No need to spend so much on expensive brands; the fit looks incredibly good. 
-[2] If I could give 10 stars, I would. Super!  
-[3] The product deserves 5 stars. I bought both M and L sizes, and they fit the same. I really liked it.
+# [1] Definitely buy it! No need to spend so much on expensive brands; the fit looks incredibly good. 
+# [2] If I could give 10 stars, I would. Super!  
+# [3] The product deserves 5 stars. I bought both M and L sizes, and they fit the same. I really liked it.
 ```
 
 Let's take a look at the emotion distribution in this data frame:
@@ -221,36 +227,29 @@ The reviews_test can be used in various ways such as capturing the negative expr
 This discrepancy between user ratings and comments is visualized in the Figure below , which shows the distribution of positive and negative reviews across all rating levels.
 
 ```{r}
-library(ggplot2)
-library(dplyr)
 reviews_test |> 
     count(rating, emotion) |> 
     ggplot(aes(x = factor(rating), y = n, fill = emotion)) +
     geom_col(position = "dodge") +
-    scale_fill_manual(values = c("p" = "lightblue", "n" = "darkred"),
-                      labels = c("p" = "Positive", "n" = "Negative")) +
-    labs(x = "User Ratings",
-         y = "Number of Reviews",
-         fill = "Polarity") +
+    scale_fill_manual(
+      values = c("p" = "lightblue", "n" = "darkred"),
+      labels = c("p" = "Positive", "n" = "Negative")
+    ) +
+    labs(
+      x = "User Ratings",
+      y = "Number of Reviews",
+      fill = "Polarity"
+    ) +
     theme_minimal() +
     theme(legend.position = "right")
 ```
 
 # References
 
-Kan-Kilinc, B., Cetinkaya-Rundel, M. & Rundel, C. (2025). shoppingwords: Text Processing Tools for Turkish E-Commerce Data. R package version 0.1.0.
+Benoit, K., Muhr, D., & Watanabe, K. (2021). stopwords: Multilingual Stopword Lists. R package version 2.3. URL: <https://CRAN.R-project.org/package=stopwords>.
 
-URL: https://github.com/bkanx/shoppingwords
+Kan-Kilinc, B., Cetinkaya-Rundel, M. & Rundel, C. (2025). shoppingwords: Text Processing Tools for Turkish E-Commerce Data. R package version 0.1.0. URL: <https://github.com/bkanx/shoppingwords>.
 
-Wickham, H., François, R., Henry, L., Müller, K., & Vaughan, D. (2023). dplyr: A Grammar of Data Manipulation. R package version 1.1.4.
+Wickham, H., François, R., Henry, L., Müller, K., & Vaughan, D. (2023). dplyr: A Grammar of Data Manipulation. R package version 1.1.4. URL: <https://CRAN.R-project.org/package=dplyr>.
 
-URL: https://CRAN.R-project.org/package=dplyr
-
-Benoit, K., Muhr, D., & Watanabe, K. (2021). stopwords: Multilingual Stopword Lists. R package version 2.3.
-
-URL: https://CRAN.R-project.org/package=stopwords
-
-Wickham, H. (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, isbn = 978-3-319-24277-4, available at URL: https://ggplot2.tidyverse.org
-
-  
-
+Wickham, H. (2016). H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. URL: <https://ggplot2-book.org>.

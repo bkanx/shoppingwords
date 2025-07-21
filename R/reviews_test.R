@@ -14,4 +14,6 @@
 #'   \item{emotion}{n for negative, p for positive.}
 #'   \item{id}{Rating ID.}
 #' }
+#' @examples
+#' reviews_test
 "reviews_test"

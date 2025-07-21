@@ -16,4 +16,7 @@ stopwords_tr
 \description{
 A dataset of stopwords used in Turkish text analysis.
 }
+\examples{
+stopwords_tr
+}
 \keyword{datasets}

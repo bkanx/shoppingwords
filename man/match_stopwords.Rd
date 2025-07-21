@@ -7,10 +7,10 @@
 match_stopwords(df)
 }
 \arguments{
-\item{df}{Dataframe containing user reviews, with required columns \code{"comment"} (text) and \code{"rating"} (numerical score).}
+\item{df}{Dataframe containing user reviews, with required columns \code{comment} (text) and \code{rating} (numerical score).}
 }
 \value{
-A modified dataframe with an additional \code{"cleaned_text"} column containing stopword-free text.
+A modified dataframe with an additional \code{cleaned_text} column containing stopword-free text.
 }
 \description{
 This function processes a dataframe containing user reviews and removes predefined stopwords.

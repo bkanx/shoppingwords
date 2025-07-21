@@ -24,11 +24,11 @@ Authors@R:
             given = "Colin",
             family = "Rundel",
             email = "cr173@duke.edu",
-            comment = c("ORCID = 0000-0002-6058-8251"), 
+            comment = c(ORCID = "0000-0002-6058-8251"), 
             role = c("ctb"),
         )
     )
-Imports: stringi, stopwords, stringdist
+Imports: stringi, stopwords, stringdist, tibble 
 Depends: R (>= 4.0.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -38,8 +38,9 @@ LazyData: true
 Suggests: 
     knitr,
     rmarkdown,
-    tibble,
     dplyr,
     ggplot2
 VignetteBuilder: knitr
 LazyDataCompression: xz
+URL: https://bkanx.github.io/shoppingwords
+

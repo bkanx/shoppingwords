@@ -8,13 +8,20 @@
 \description{
 Provides several datasets useful for processing and analysis of text in Turkish from an online shopping platform.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://bkanx.github.io/shoppingwords}
+}
+
+}
 \author{
-\strong{Maintainer}: Betul Kan-Kilinc \email{bkan@eskisehir.edu.tr, bk234@duke.edu} (\href{https://orcid.org/0000-0002-3746-2327}{ORCID})
+\strong{Maintainer}: Betul Kan-Kilinc \email{bkan@eskisehir.edu.tr} (\href{https://orcid.org/0000-0002-3746-2327}{ORCID})
 
 Other contributors:
 \itemize{
   \item Mine Çetinkaya-Rundel \email{cetinkaya.mine@gmail.com} (\href{https://orcid.org/0000-0001-6452-2420}{ORCID}) [contributor]
-  \item Colin Rundel \email{cr173@duke.edu} (ORCID = 0000-0002-6058-8251) [contributor]
+  \item Colin Rundel \email{cr173@duke.edu} (\href{https://orcid.org/0000-0002-6058-8251}{ORCID}) [contributor]
 }
 
 }

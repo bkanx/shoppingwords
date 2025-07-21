@@ -12,10 +12,18 @@
 #' @import stringi
 #' @importFrom stringdist amatch
 #' @import stopwords
+#' @importFrom tibble tibble
 #' @export
+#' @examples
+#' reviews_sample <- tibble::tibble(
+#'   comment = c("Bu ürün xs ancak fiyatı yüksek gibi",
+#'               "Fiyat çok pahalı ama kaliteli iyi"),
+#'   rating = c(4.5, 3.0)
+#' )
+#' match_stopwords(reviews_sample)
 match_stopwords <- function(df) {
   # Load stopwords
-  get("stopwords_tr", envir = asNamespace("shoppingwords")) # Loads stopwords_tr.rda
+ # get("stopwords_tr", envir = asNamespace("shoppingwords")) # Loads stopwords_tr.rda
   stopwords_tr <- shoppingwords::stopwords_tr$word # Extracts the column
 
   stopwords_iso <- stopwords::stopwords("tr", source = "stopwords-iso")
@@ -41,3 +49,4 @@ match_stopwords <- function(df) {
 
   return(df)
 }
+

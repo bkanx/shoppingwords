@@ -22,3 +22,11 @@ The function converts text to a standardized format by removing accents and spec
 transforming it into basic Latin characters, and making all letters lowercase. It then
 tokenizes the text, filters out stopwords, and returns the cleaned version.
 }
+\examples{
+reviews_sample <- tibble::tibble(
+  comment = c("Bu ürün xs ancak fiyatı yüksek gibi",
+              "Fiyat çok pahalı ama kaliteli iyi"),
+  rating = c(4.5, 3.0)
+)
+match_stopwords(reviews_sample)
+}

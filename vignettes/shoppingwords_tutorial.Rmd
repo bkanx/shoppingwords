@@ -31,6 +31,7 @@ For this vignette we will use the shoppingwords, dplyr and ggplot2 packages:
 #| message: false
 library(dplyr)
 library(ggplot2)
+library(tibble)
 ```
 
 We'll also load the **shoppingwords** package.
@@ -43,7 +44,7 @@ library(shoppingwords)
 
 The **shoppingwords** package provides several datasets useful for text processing and analysis. This section introduces the datasets stored in the `data/` folder, explaining their contents and showing how to load them into R.
 
-The datasets included in the package are given in Table 1:
+The datasets included in the package are given in the Table:
 
 |Dataset Name        | Description |
 |---------------------|-------------|
@@ -51,7 +52,7 @@ The datasets included in the package are given in Table 1:
 | `stopwords_tr`      | A list of Turkish stopwords including shopping-based terms for text preprocessing. |
 | `phrases`           | A data containing predefined Turkish phrases for analysis. |
 | `reviews_test`      | Sample test data including sentence-based polarity for further NLP tasks (in Turkish). |
-_Table 1: Overview of the datasets in the package._
+_Table: Overview of the datasets in the package._
 
 ### `reviews`
 
@@ -59,14 +60,14 @@ The `reviews` data frame is the core component of the shoppingwords package, des
 
 It contains a large number of reviews collected from a Turkish e-commerce site.
 
-See Table 2 for the data dictionary for this data frame.
+See the Table for the data dictionary for this data frame.
 
 | Column   | Description |
 |----------|-------------|
 | `rating` | Numerical rating (1-5) from user reviews. |
 | `comment`| Review content, including product opinions. |
 | `id`     | Review ID. |
-_Table 2: Data dictionary for the `reviews` data frame._
+_Table: Data dictionary for the `reviews` data frame._
 
 ```{r}
 glimpse(reviews)
@@ -178,7 +179,7 @@ The `shoppingwords` package also includes a **reviews_test** data for text minin
 
 This data contains user-generated reviews labeled as **positive (`p`)** or **negative (`n`)**, being different than reviews data and making it useful for training models in sentiment classification.
 
-See Table 3 for the data dictionary for this data frame.
+See the Table for the data dictionary for this data frame.
 
 | Column    | Description |
 |-----------|-------------|
@@ -186,7 +187,7 @@ See Table 3 for the data dictionary for this data frame.
 | `text`    | Review content, including product opinions. |
 | `emotion` | Sentiment label (`p`: positive, `n`: negative). |
 | `id`      | Review ID. |
-_Table 3: Data dictionary for the `reviews_test` data frame._
+_Table: Data dictionary for the `reviews_test` data frame._
 
 Below is a preview of the test dataset, which includes customer ratings, review text, and sentiment labels. 
 
@@ -226,7 +227,7 @@ The reviews_test can be used in various ways such as capturing the negative expr
 
 This discrepancy between user ratings and comments is visualized in the Figure below , which shows the distribution of positive and negative reviews across all rating levels.
 
-```{r}
+```{r plot-example, fig.alt = "Visualization of sentiment distribution in shopping reviews"}
 reviews_test |> 
     count(rating, emotion) |> 
     ggplot(aes(x = factor(rating), y = n, fill = emotion)) +
@@ -239,6 +240,7 @@ reviews_test |>
       x = "User Ratings",
       y = "Number of Reviews",
       fill = "Polarity"
+      
     ) +
     theme_minimal() +
     theme(legend.position = "right")

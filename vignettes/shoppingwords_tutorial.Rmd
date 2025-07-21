@@ -240,7 +240,7 @@ reviews_test |>
 
 Kan-Kilinc, B., Cetinkaya-Rundel, M. & Rundel, C. (2025). shoppingwords: Text Processing Tools for Turkish E-Commerce Data. R package version 0.1.0.
 
-Available at: https://github.com/bkanx/shoppingwords
+URL: https://github.com/bkanx/shoppingwords
 
 Wickham, H., François, R., Henry, L., Müller, K., & Vaughan, D. (2023). dplyr: A Grammar of Data Manipulation. R package version 1.1.4.
 

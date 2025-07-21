@@ -225,9 +225,9 @@ reviews_test |>
 
 The reviews_test can be used in various ways such as capturing the negative expressions or predicting sentence-level polarity using the `reviews`. 
 
-This discrepancy between user ratings and comments is visualized in the Figure below , which shows the distribution of positive and negative reviews across all rating levels.
+This discrepancy between user ratings and comments is visualized in the Figure below, which shows the distribution of positive and negative reviews across all rating levels.
 
-```{r plot-example, fig.alt = "Visualization of sentiment distribution in shopping reviews"}
+```{r plot-example, fig.alt = "The distribution of the reviews across all rating"}
 reviews_test |> 
     count(rating, emotion) |> 
     ggplot(aes(x = factor(rating), y = n, fill = emotion)) +

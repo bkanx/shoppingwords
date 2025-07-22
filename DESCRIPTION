@@ -3,13 +3,13 @@ Title: Text Processing Tools for Turkish E-Commerce Data
 Description: Provides several datasets useful for processing and analysis of text in Turkish from an online shopping platform.
 Version: 0.1.0
 Author: Betul Kan-Kilinc
-Maintainer: Betul Kan-Kilinc <kanbetul@yahoo.com>
+Maintainer: Betul Kan-Kilinc <bkan@eskisehir.edu.tr>
 Authors@R: 
     c(
         person(
             given = "Betul",
             family = "Kan-Kilinc",
-            email = "kanbetul@yahoo.com",
+            email = "bkan@eskisehir.edu.tr",
             comment = c(ORCID = "0000-0002-3746-2327"),
             role = c("aut", "cre")
         ),

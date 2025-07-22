@@ -12,7 +12,6 @@ Provides several datasets useful for processing and analysis of text in Turkish 
 Useful links:
 \itemize{
   \item \url{https://bkanx.github.io/shoppingwords}
-  \item \url{https://bkanx.github.io/shoppingwords/}
 }
 
 }

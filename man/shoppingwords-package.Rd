@@ -16,7 +16,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Betul Kan-Kilinc \email{kanbetul@yahoo.com} (\href{https://orcid.org/0000-0002-3746-2327}{ORCID})
+\strong{Maintainer}: Betul Kan-Kilinc \email{bkan@eskisehir.edu.tr} (\href{https://orcid.org/0000-0002-3746-2327}{ORCID})
 
 Other contributors:
 \itemize{

@@ -3,7 +3,7 @@ pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   shoppingwords_tutorial: shoppingwords_tutorial.html
-last_built: 2025-07-22T02:13Z
+last_built: 2025-07-22T02:37Z
 urls:
   reference: https://bkanx.github.io/shoppingwords/reference
   article: https://bkanx.github.io/shoppingwords/articles

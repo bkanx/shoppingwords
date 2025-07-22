@@ -42,4 +42,4 @@ Suggests:
     ggplot2
 VignetteBuilder: knitr
 LazyDataCompression: xz
-URL: https://bkanx.github.io/shoppingwords
+URL: https://bkanx.github.io/shoppingwords/

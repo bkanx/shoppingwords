@@ -2,7 +2,7 @@ Package: shoppingwords
 Title: Text Processing Tools for Turkish E-Commerce Data
 Description: Provides several datasets useful for processing and analysis of text in Turkish from an online shopping platform.
 Version: 0.1.0
-Author: Betul Kan-Kilinc, Mine Çetinkaya-Rundel, Colin Rundel
+Author: Betul Kan-Kilinc
 Maintainer: Betul Kan-Kilinc <kanbetul@yahoo.com>
 Authors@R: 
     c(
